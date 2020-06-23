@@ -1,0 +1,21 @@
+<?php
+
+function rithook_form_alter(&$form, &$form_state, $form_id) {
+	if($form_id == 'suppliers_node_form') {
+
+		$form['field_supplier_coordinator']['und']['#suffix'] .= '<div>
+			<a class="various" data-fancybox-type="iframe" href="/node/add/coordinators">Add new coordinator</a>
+		</div>';
+
+		$form['#attached']['js'] = array(
+      			drupal_get_path('module', 'rithook') . '/js/suppliers_node_form.js',
+      	);
+
+	}
+	elseif($form_id == 'products_node_form') {
+		$form['#attached']['js'] = array(
+      			drupal_get_path('module', 'rithook') . '/js/products_node_form.js',
+      	);
+
+	}
+}
