@@ -11,6 +11,8 @@ function rithook_form_alter(&$form, &$form_state, $form_id) {
       			drupal_get_path('module', 'rithook') . '/js/suppliers_node_form.js',
       	);
 
+
+
 	}
 	elseif($form_id == 'products_node_form') {
 		$form['#attached']['js'] = array(
@@ -18,4 +20,29 @@ function rithook_form_alter(&$form, &$form_state, $form_id) {
       	);
 
 	}
+}
+
+function rithook_node_submit($node, $form, &$form_state) {
+	if ($node->type == 'suppliers' && $node->field_supplier_code != "") {
+		$node->field_supplier_code['und'][0]['value'] = gen_node_code($node);
+	}
+	elseif ($node->type == 'customers' && $node->field_customer_code != "") {
+		$node->field_customer_code['und'][0]['value'] = gen_node_code($node);
+	}
+}
+
+function gen_node_code($node) {
+
+	
+	if ($node->type == 'suppliers') {
+		$counter = db_query("SELECT count(nid) FROM {node} WHERE type='".$node->type."' AND status=1")->fetchField();
+		$run_num = str_pad($counter+1, 4, '0', STR_PAD_LEFT);
+		return 'SP-'.$run_num.date('m').date('Y');
+	}
+	elseif ($node->type == 'customers') {
+		$counter = db_query("SELECT count(nid) FROM {node} WHERE type='".$node->type."' AND status=1")->fetchField();
+		$run_num = str_pad($counter+1, 4, '0', STR_PAD_LEFT);
+		return 'CUST-'.$run_num.date('m').date('Y');
+	}
+
 }

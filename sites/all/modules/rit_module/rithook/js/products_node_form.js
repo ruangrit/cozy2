@@ -2,6 +2,7 @@ $ = jQuery;
 $(document).ready(function() {
 
 	var code;
+	var numberCode = 'XXXX';
 	var shopCode = 'X';
 	var subCatCode = 'XX';
 	var prdNameCode = 'XXXXXXXXXX';
@@ -31,28 +32,40 @@ $(document).ready(function() {
 	$(materialId).change(function () {
 		render_product_code();
 	});
+
 	render_product_code();
+
 	function render_product_code() {
 
 		if ($(shopId).val() != '_none') {
- 			shopCode = $(shopId + ' option:selected').text().substring(0, 1);
+ 			shopCode = $(shopId + ' option:selected').text();
+ 			shopCode = get_first_word(shopCode);
 		}
 		if (typeof $(subCatId).val() !== 'undefined' && $(subCatId).val() != 'label_1') {
- 			subCatCode = $(subCatId + ' option:selected').text().substring(0, 2);
+ 			subCatCode = $(subCatId + ' option:selected').text();
+ 			subCatCode = get_first_word(subCatCode);
 		}
 		if ($(prdNameId).val() != '') {
  			prdNameCode = $(prdNameId).val().substring(0, 10);
+ 			
 		}
 		if ($(colorId).val() != '_none') {
- 			colorCode = $(colorId + ' option:selected').text().substring(0, 3);
+ 			colorCode = $(colorId + ' option:selected').text();
+ 			colorCode = get_first_word(colorCode);
 		}
 		if ($(materialId).val() != '_none') {
- 			materialCode = $(materialId + ' option:selected').text().substring(0, 2);
+ 			materialCode = $(materialId + ' option:selected').text();
+ 			materialCode = get_first_word(materialCode);
 		}
          
-        code = 'XXXX-' + shopCode + '-' + subCatCode + '-' + prdNameCode + '-' + colorCode + '-' + materialCode;
+        code = numberCode + '-' + shopCode + '-' + subCatCode + '-' + prdNameCode + '-' + colorCode + '-' + materialCode;
         $('#edit-field-product-code-und-0-value').val(code);
 
+	}
+
+	function get_first_word(word) {
+		var res = word.split("-");
+		return res[0];
 	}
 
 
