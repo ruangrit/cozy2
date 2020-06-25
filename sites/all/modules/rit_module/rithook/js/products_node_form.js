@@ -14,6 +14,7 @@ $(document).ready(function() {
 	var prdNameId = '#edit-title';
 	var colorId = '#edit-field-product-color-und';
 	var materialId = '#edit-field-product-material-und';
+	var prdCodeID = '#edit-field-product-code-und-0-value';
 
 	$(shopId).change(function () {
 		render_product_code();
@@ -33,8 +34,12 @@ $(document).ready(function() {
 		render_product_code();
 	});
 
-	render_product_code();
-
+	if ($(prdCodeID).val() == '') {
+		render_product_code();
+	}
+	else {
+		numberCode = $(prdCodeID).val().substring(0, 4);
+	}
 	function render_product_code() {
 
 		if ($(shopId).val() != '_none') {

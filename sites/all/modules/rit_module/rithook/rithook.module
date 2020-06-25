@@ -29,20 +29,29 @@ function rithook_node_submit($node, $form, &$form_state) {
 	elseif ($node->type == 'customers' && $node->field_customer_code != "") {
 		$node->field_customer_code['und'][0]['value'] = gen_node_code($node);
 	}
+	elseif ($node->type == 'products' && substr($node->field_product_code, 0, 4) != "XXXX") {
+		$node->field_product_code['und'][0]['value'] = gen_node_code($node);
+	}
 }
 
 function gen_node_code($node) {
 
 	
 	if ($node->type == 'suppliers') {
-		$counter = db_query("SELECT count(nid) FROM {node} WHERE type='".$node->type."' AND status=1")->fetchField();
+		$counter = db_query("SELECT count(nid) FROM {node} WHERE type='".$node->type."' ")->fetchField();
 		$run_num = str_pad($counter+1, 4, '0', STR_PAD_LEFT);
 		return 'SP-'.$run_num.date('m').date('Y');
 	}
 	elseif ($node->type == 'customers') {
-		$counter = db_query("SELECT count(nid) FROM {node} WHERE type='".$node->type."' AND status=1")->fetchField();
+		$counter = db_query("SELECT count(nid) FROM {node} WHERE type='".$node->type."' ")->fetchField();
 		$run_num = str_pad($counter+1, 4, '0', STR_PAD_LEFT);
 		return 'CUST-'.$run_num.date('m').date('Y');
+	}
+	elseif ($node->type == 'products') {
+		$counter = db_query("SELECT count(nid) FROM {node} WHERE type='".$node->type."' ")->fetchField();
+		$run_num = str_pad($counter+1, 4, '0', STR_PAD_LEFT);
+		return $run_num.substr($node->field_product_code['und'][0]['value'], 4);
+
 	}
 
 }
