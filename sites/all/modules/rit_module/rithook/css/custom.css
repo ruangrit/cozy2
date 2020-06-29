@@ -1,0 +1,16 @@
+img.center {
+	display: block;
+	margin: 0 auto;
+}
+.marb10 {
+	margin-bottom: 10px; 
+}
+.marb20 {
+	margin-bottom: 20px; 
+}
+.marb30 {
+	margin-bottom: 30px; 
+}
+#block-block-1 {
+	text-align: center;
+}

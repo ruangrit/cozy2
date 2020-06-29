@@ -1,5 +1,36 @@
 <?php
 
+
+function rithook_menu ()
+{
+    $items['home'] = array(
+        'title' => 'Cozy product management',
+        'page callback' => 'rithook_filter_page',
+        'access arguments' => array('access content'),
+    );
+    return $items;
+}     
+
+function rithook_filter_page ()
+{
+    return theme('rithook_home_page', array('title' => 'Testing'));
+}
+
+
+/*
+    Implements hook_theme();
+*/
+function rithook_theme($existing, $type, $theme, $path)
+{
+    return array(
+        'rithook_home_page' => array(
+            'variables' => array('title' => NULL),
+            'template' => 'homepage',
+        ),
+    );
+} 
+
+
 function rithook_form_alter(&$form, &$form_state, $form_id) {
 	if($form_id == 'suppliers_node_form') {
 
@@ -27,11 +58,6 @@ function rithook_form_alter(&$form, &$form_state, $form_id) {
 }
 
 function rithook_node_submit($node, $form, &$form_state) {
-
-	
-	if ($node->path['alias'] == '' && ($node->type == 'suppliers' || $node->type == 'customers' || $node->type == 'products') ) {
-		$node->path['alias'] = $node->type.'/'.$node->nid;
-	}
 
 	if ($node->type == 'suppliers' && $node->field_supplier_code != "") {
 		$node->field_supplier_code['und'][0]['value'] = gen_node_code($node);

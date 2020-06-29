@@ -1,7 +1,8 @@
 $ = jQuery;
 $(document).ready(function() {
 
-
+	$('#edit-field-product-code').hide();
+	
 	$(".various").fancybox({
 		maxWidth	: 800,
 		maxHeight	: 600,
