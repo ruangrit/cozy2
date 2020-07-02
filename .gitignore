@@ -1,4 +1,15 @@
 # Ignore configuration files that may contain sensitive information.
+.DS_Store
+.bash_history
+.bash_logout
+.bashrc
+.cloud-locale-test.skip
+.profile
+.sudo_as_admin_successful
+.viminfo
+.vimrc
+.wget-hsts
+
 sites/*/settings*.php
 misc/
 profiles/
