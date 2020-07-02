@@ -1,5 +1,9 @@
 <?php
-
+global $user;
+if ($user->uid == 0) {
+	//print 'Login to view product.';
+	//return false;
+}
 $nodes = node_load_multiple(array(), array('type' => 'products'));
 foreach ($nodes as $node) {
 	
