@@ -32,16 +32,40 @@ function rithook_theme($existing, $type, $theme, $path)
 
 
 function rithook_form_alter(&$form, &$form_state, $form_id) {
-	if($form_id == 'suppliers_node_form') {
 
-		$form['field_supplier_coordinator']['und']['#suffix'] .= '<div>
+	dpm($form);
+	// add css to multiple ode form
+	if ($form_id == 'customers_node_form') {
+		$form['author']['#access'] = FALSE;
+		$form['#attached']['css'] = array(
+      			drupal_get_path('module', 'rithook') . '/css/node_form.css',
+      	);
+
+	}
+
+	if ($form_id == 'customers_node_form') {
+
+		$form['field_customer_code']['#access'] = FALSE;
+		$form['field_customer_source']['#access'] = FALSE;
+
+		$form['#attached']['js'] = array(
+      			drupal_get_path('module', 'rithook') . '/js/customers_node_form.js',
+      	);
+
+ 		drupal_add_css(drupal_get_path('module', 'rithook') . '/css/customers_node_form.css');
+      	
+	}
+
+	elseif($form_id == 'suppliers_node_form') {
+
+/*		$form['field_supplier_coordinator']['und']['#suffix'] .= '<div>
 			<a class="various" data-fancybox-type="iframe" href="/node/add/coordinators">Add new coordinator</a>
 		</div>';
 
 		$form['#attached']['js'] = array(
       			drupal_get_path('module', 'rithook') . '/js/suppliers_node_form.js',
       	);
-
+*/
 
 
 	}
