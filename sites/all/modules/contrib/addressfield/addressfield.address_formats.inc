@@ -161,10 +161,10 @@ function addressfield_get_address_format($country_code) {
     'postal_code_label' => t('ZIP code'),
   );
   $address_formats['GB'] = array(
-    'used_fields' => array('locality', 'postal_code'),
+    'used_fields' => array('locality', 'administrative_area', 'postal_code'),
     'required_fields' => array('locality', 'postal_code'),
     'locality_label' => t('Town/City'),
-    'administrative_area_label' => t('County'),
+    'administrative_area_label' => t('City'),
     'postal_code_label' => t('Postcode'),
   );
   $address_formats['GI'] = array(
@@ -380,7 +380,7 @@ function addressfield_get_address_format($country_code) {
     'required_fields' => array('locality', 'administrative_area'),
   );
   $address_formats['TH'] = array(
-    'used_fields' => array('dependent_locality', 'locality', 'administrative_area', 'postal_code'),
+    'used_fields' => array( 'locality', 'administrative_area', 'postal_code'),
   );
   $address_formats['TR'] = array(
     'used_fields' => array('locality', 'administrative_area', 'postal_code'),

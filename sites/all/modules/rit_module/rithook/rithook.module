@@ -1,8 +1,7 @@
 <?php
 
 
-function rithook_menu ()
-{
+function rithook_menu () {
     $items['home'] = array(
         'title' => 'Cozy product management',
         'page callback' => 'rithook_filter_page',
@@ -11,8 +10,7 @@ function rithook_menu ()
     return $items;
 }     
 
-function rithook_filter_page ()
-{
+function rithook_filter_page () {
     return theme('rithook_home_page', array('title' => 'Testing'));
 }
 
@@ -20,8 +18,7 @@ function rithook_filter_page ()
 /*
     Implements hook_theme();
 */
-function rithook_theme($existing, $type, $theme, $path)
-{
+function rithook_theme($existing, $type, $theme, $path) {
     return array(
         'rithook_home_page' => array(
             'variables' => array('title' => NULL),
@@ -33,7 +30,7 @@ function rithook_theme($existing, $type, $theme, $path)
 
 function rithook_form_alter(&$form, &$form_state, $form_id) {
 
-	dpm($form);
+	//dpm($form);
 	// add css to multiple ode form
 	if ($form_id == 'customers_node_form') {
 		$form['author']['#access'] = FALSE;
@@ -47,6 +44,8 @@ function rithook_form_alter(&$form, &$form_state, $form_id) {
 
 		$form['field_customer_code']['#access'] = FALSE;
 		$form['field_customer_source']['#access'] = FALSE;
+
+		//$form['field_customer_address']['und'][0]['add_more']['value'] = 'Add more address';
 
 		$form['#attached']['js'] = array(
       			drupal_get_path('module', 'rithook') . '/js/customers_node_form.js',
