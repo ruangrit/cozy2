@@ -14,3 +14,6 @@ img.center {
 #block-block-1 {
 	text-align: center;
 }
+#navbar {
+	display: none;
+}
