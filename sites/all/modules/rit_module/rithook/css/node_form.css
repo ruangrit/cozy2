@@ -4,3 +4,10 @@
 .tabledrag-toggle-weight-wrapper {
 	display: none;
 }
+.ckeditor_links, .filter-wrapper {
+	display: none !important;
+}
+
+.field-type-image .help-block {
+	display: none !important;
+}

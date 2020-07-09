@@ -3,7 +3,7 @@ $(document).ready(function() {
 
 	if ($('#field-p-coordinators-values').length == 0) {
 
-		$('#edit-field-p-coordinators-und-add-more > button').trigger('mousedown');
+		$('#edit-field-p-coordinator-und-add-more > button').trigger('mousedown');
 
 	}
 

@@ -32,7 +32,7 @@ function rithook_form_alter(&$form, &$form_state, $form_id) {
 
 	//dpm($form);
 	// add css to multiple ode form
-	if ($form_id == 'customers_node_form' || $form_id == 'suppliers_node_form') {
+	if ($form_id == 'customers_node_form' || $form_id == 'suppliers_node_form' || $form_id == 'products_node_form') {
 		$form['author']['#access'] = FALSE;
 		$form['#attached']['css'] = array(
       			drupal_get_path('module', 'rithook') . '/css/node_form.css',
@@ -73,6 +73,9 @@ function rithook_form_alter(&$form, &$form_state, $form_id) {
 		$form['#attached']['js'] = array(
       			drupal_get_path('module', 'rithook') . '/js/products_node_form.js',
       	);
+
+ 	 	//drupal_add_css(drupal_get_path('module', 'rithook') . '/css/products_node_form.css');
+
 
 	}
 }
