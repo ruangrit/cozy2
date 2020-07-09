@@ -34,6 +34,10 @@ body, #field-email-values td, #field-contact-number-values td, .panel {
 	box-shadow: none !important;
 }
 
+fieldset.date-combo .container-inline-date .date-padding {
+	padding: 0px !important;
+}
+
 .table > thead > tr > th {
 	border-bottom: 0px !important;
 }
