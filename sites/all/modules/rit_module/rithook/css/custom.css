@@ -23,7 +23,7 @@ img.center {
 	margin-top: 3px;
 }
 
-body, #field-email-values td, #field-contact-number-values td, .panel {
+body, #edit-field-email td, #edit-field-contact-number td, .panel {
 
 	color: #242424 !important;
 	background: #F3F4F3 !important;
@@ -50,11 +50,11 @@ fieldset.date-combo .container-inline-date .date-padding {
 	padding: 0px !important;
 }
 
-#field-contact-number-values .field-multiple-drag, #field-email-values .field-multiple-drag , #field-customer-address-values .field-multiple-drag {
+#edit-field-contact-number .field-multiple-drag, #edit-field-email .field-multiple-drag , #edit-field-customer-address .field-multiple-drag {
 	display: none;
 }
 
-#field-contact-number-values td, #field-email-values td, #field-customer-address-values td {
+#edit-field-contact-number td, #edit-field-email td, #edit-field-customer-address td {
 	padding: 0px !important;
 }
 
