@@ -11,3 +11,10 @@
 .field-type-image .help-block {
 	display: none !important;
 }
+.form-actions {
+	text-align: center;
+}
+
+.form-item-sticky, .form-item-promote {
+	display: none !important;
+}

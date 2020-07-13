@@ -37,6 +37,18 @@ function rithook_form_alter(&$form, &$form_state, $form_id) {
 		$form['#attached']['css'] = array(
       			drupal_get_path('module', 'rithook') . '/css/node_form.css',
       	);
+		global $user;
+		//dpm($user);
+		if (!user_has_role(4) && !user_has_role(3)) {
+      		$form['options']['#access'] = FALSE;
+      		$form['revision_information']['#access'] = FALSE;
+			
+		}
+
+		// Add js to check rev if field have change
+		if (arg(1) != 'add') {
+	 		drupal_add_js(drupal_get_path('module', 'rithook') . '/js/check_new_rev.js');
+		}
 
 	}
 
