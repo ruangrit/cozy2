@@ -85,9 +85,11 @@ function multiple_fields_remove_button_field_widget_form_alter(&$element, &$form
     'addressfield_standard',
     'location',
     'email_textfield',
+    'international_phone_textfield',
   );
   // Add extra widgets with the help of others modules.
   drupal_alter('multiple_field_remove_button_field_widgets', $fieldwidgets);
+  //dpm($context['instance']['widget']['type']);
   if ($context['field']['cardinality'] == FIELD_CARDINALITY_UNLIMITED && in_array($context['instance']['widget']['type'], $fieldwidgets)) {
 
     $original_element = $element;
