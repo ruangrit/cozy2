@@ -6,7 +6,7 @@ $(document).ready(function() {
 		force_revision_new();
 	});
 
-	$( document ).on( "keyup", "#edit-field-contact-number  input", function() {
+	$( document ).on( "keyup", "#edit-field-in-contact-number  input", function() {
 		force_revision_new();
 	});
 
