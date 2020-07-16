@@ -64,7 +64,7 @@ function international_phone_field_formatter_view($entity_type, $entity, $field,
       'type' => 'setting',
       'data' => array(
         'internationalPhone' => array(
-          'utilsScriptPath' => libraries_get_path('intl-tel-input') . '/build/js/utils.js',
+          'utilsScriptPath' => '/'.libraries_get_path('intl-tel-input') . '/build/js/utils.js',
           'defaultCountryCode' => $instance['settings']['international_phone_default_country_code'],
         ),
       ),
@@ -93,6 +93,7 @@ function international_phone_field_widget_info() {
  * Implements hook_field_widget_form().
  */
 function international_phone_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  //dpm($instance);
   $element['value'] = array(
     '#type' => 'textfield',
     '#title' => check_plain($element['#title']),
@@ -116,7 +117,7 @@ function international_phone_field_widget_form(&$form, &$form_state, $field, $in
           'type' => 'setting',
           'data' => array(
             'internationalPhone' => array(
-              'utilsScriptPath' => libraries_get_path('intl-tel-input') . '/build/js/utils.js',
+              'utilsScriptPath' => '/'.libraries_get_path('intl-tel-input') . '/build/js/utils.js',
               'defaultCountryCode' => $instance['settings']['international_phone_default_country_code'],
             ),
           ),

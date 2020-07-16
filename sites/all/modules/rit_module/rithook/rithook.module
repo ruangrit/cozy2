@@ -27,19 +27,27 @@ function rithook_theme($existing, $type, $theme, $path) {
     );
 } 
 
+function rithook_form_submit($form, &$form_state){ 
+
+	dpm($form);
+
+}
+
 
 function rithook_form_alter(&$form, &$form_state, $form_id) {
 
-	//dpm($form);
 	// add css to multiple ode form
+	dpm($form);
 	if ($form_id == 'customers_node_form' || $form_id == 'suppliers_node_form' || $form_id == 'products_node_form') {
 		$form['author']['#access'] = FALSE;
 		$form['#attached']['css'] = array(
       			drupal_get_path('module', 'rithook') . '/css/node_form.css',
       	);
-		global $user;
-		//dpm($user);
-		if (!user_has_role(4) && !user_has_role(3)) {
+
+      	// ==== hide add more for customer from web or shop
+		//global $user;
+		//if (!user_has_role(4) && !user_has_role(3)) {
+		if (isset($_GET['csf'])  && ($_GET['csf'] == 'web' || $_GET['csf'] == 'shop') ) {
       		$form['options']['#access'] = FALSE;
       		$form['revision_information']['#access'] = FALSE;
 			
