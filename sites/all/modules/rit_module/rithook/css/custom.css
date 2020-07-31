@@ -17,3 +17,52 @@ img.center {
 #navbar {
 	display: none;
 }
+
+
+
+
+@font-face {
+    font-family: 'hatton';
+    src: url('/sites/all/modules/rit_module/rithook/font/hatton-semibold-webfont.woff') format('woff'),
+         url('/sites/all/modules/rit_module/rithook/font/hatton-semibold-webfont.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'tenor';
+    src: url('/sites/all/modules/rit_module/rithook/font/tenorsans-regular-webfont.woff') format('woff'),
+         url('/sites/all/modules/rit_module/rithook/font/tenorsans-regular-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1 {
+	font-family: 'hatton', sans-serif !important;
+	padding-top: 15px;
+	font-size: 50px !important;
+}
+
+body {
+
+	font-family: 'tenor', sans-serif !important;
+
+}
+
+.webmaster-menu {
+	background: #98B7C9 !important;
+	color: #fff;
+}
+
+.webmaster-menu ul.menu li ul li {
+	background: #98B7C9 !important;
+}
+
+.webmaster-menu ul.menu > li:hover > a {
+	background: #6d8c9e !important;
+}
+
+.webmaster-menu ul.menu li:hover li {
+  border-bottom: 1px solid #6d8c9e !important;
+
+}

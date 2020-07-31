@@ -3,7 +3,7 @@
 
 function rithook_menu () {
     $items['home'] = array(
-        'title' => 'Cozy product management',
+        'title' => 'Our Products',
         'page callback' => 'rithook_filter_page',
         'access arguments' => array('access content'),
     );
@@ -58,6 +58,8 @@ function rithook_form_alter(&$form, &$form_state, $form_id) {
 
 	if ($form_id == 'customers_node_form') {
 
+		drupal_set_title('New Customer');
+
 		$form['field_customer_code']['#access'] = FALSE;
 		$form['field_customer_source']['#access'] = FALSE;
 
@@ -77,6 +79,9 @@ function rithook_form_alter(&$form, &$form_state, $form_id) {
 	}
 
 	elseif($form_id == 'suppliers_node_form') {
+
+		drupal_set_title('New Supplier');
+
 		$form['field_supplier_code']['#access'] = FALSE;
 
 
@@ -92,7 +97,7 @@ function rithook_form_alter(&$form, &$form_state, $form_id) {
 
 	}
 	elseif($form_id == 'products_node_form') {
-
+		drupal_set_title('New Product');
 		$form['field_product_supplier']['und']['#suffix'] .= '<div>
 			<a class="various" data-fancybox-type="iframe" href="/node/add/suppliers">Add new supplier</a>
 		</div>';
