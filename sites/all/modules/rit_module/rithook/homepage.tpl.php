@@ -5,15 +5,24 @@ if ($user->uid == 0) {
 	//return false;
 }
 $nodes = node_load_multiple(array(), array('type' => 'products'));
+
+$total_node = count($nodes);
+$run_num = 1;
 foreach ($nodes as $node) {
 	
 	$path = drupal_get_path_alias('node/'.$node->nid);
-	print '<div class="container" style="border-bottom: 1px solid #eee; padding-top: 20px;">';
+	if ($run_num == $total_node) {
+		print '<div class="container" style="padding-top: 20px;">';
+	}
+	else {
+		print '<div class="container" style="border-bottom: 1px solid #eee; padding-top: 20px;">';
+
+	}
 		print '<div class="row marb20">';
 			print '<div class="col-xs-4"><a href="'.$path.'">';
 				print theme('image_style', 
 					array('path' => $node->field_product_feature_image['und'][0]['uri'],
-						'style_name' => 'medium',
+						'style_name' => 'product_list',
 						'attributes' => array('class' => 'center'),
 						)
 					);
@@ -29,6 +38,7 @@ foreach ($nodes as $node) {
 			print '</div>';
 		print '</div>';
 	print '</div>';
+	$run_num++;
 }
 
 

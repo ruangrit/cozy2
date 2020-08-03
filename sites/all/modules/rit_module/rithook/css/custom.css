@@ -37,13 +37,13 @@ img.center {
     font-style: normal;
 }
 
-h1 {
+.main-container h1 {
 	font-family: 'hatton', sans-serif !important;
 	padding-top: 15px;
 	font-size: 50px !important;
 }
 
-body {
+.main-container {
 
 	font-family: 'tenor', sans-serif !important;
 
