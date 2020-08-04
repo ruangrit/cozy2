@@ -66,3 +66,39 @@ img.center {
   border-bottom: 1px solid #6d8c9e !important;
 
 }
+
+.code16 {
+	color: #98B8CA; 
+	font-size: 16px;
+	line-height: 1.5em;
+}
+
+.title18 {
+	color: #666666;
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 1.5em;
+}
+.normal16 {
+	color: #989898;
+	font-size: 16px;
+	line-height: 1.5em;
+}
+
+.code14 a{
+	color: #98B8CA; 
+	font-size: 14px;
+	line-height: 1.5em;
+}
+
+.title16 {
+	color: #666666;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 1.5em;
+}
+.normal14 {
+	color: #989898;
+	font-size: 14px;
+	line-height: 1.5em;
+}

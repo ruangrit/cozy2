@@ -31,9 +31,9 @@ foreach ($nodes as $node) {
 
 			print '<div class="col-xs-8">';
 
-				print '<div style="color: #98B8CA; font-size: 16px; line-height: 1.5em;">' . $node->field_product_code['und'][0]['value'] . '</div>';
-				print '<div style="color: #666666; font-size: 18px; font-weight: bold; line-height: 1.5em;">PRODUCT NAME:</b> ' . $node->title . '</div>';
-				print '<div style="color: #989898; font-size: 16px; line-height: 1.5em;"> THB ' .number_format($node->field_product_price['und'][0]['value']).' </div>';
+				print '<div class="code16">' . $node->field_product_code['und'][0]['value'] . '</div>';
+				print '<div class="title18">' . $node->title . '</div>';
+				print '<div class="normal16"> THB ' .number_format($node->field_product_price['und'][0]['value']).' </div>';
 
 			print '</div>';
 		print '</div>';

@@ -2,16 +2,32 @@
 
 
 function rithook_menu () {
-    $items['home'] = array(
-        'title' => 'Our Products',
-        'page callback' => 'rithook_filter_page',
+    $items['inventory'] = array(
+        'title' => 'our products',
+        'page callback' => 'rithook_inventory_page',
+        'access arguments' => array('access content'),
+    );
+    $items['cutomer'] = array(
+        'title' => 'Cutomer',
+        'page callback' => 'rithook_cutomer_page',
+        'access arguments' => array('access content'),
+    );
+    $items['supplier'] = array(
+        'title' => 'Supplier',
+        'page callback' => 'rithook_supplier_page',
         'access arguments' => array('access content'),
     );
     return $items;
 }     
 
-function rithook_filter_page () {
-    return theme('rithook_home_page', array('title' => 'Testing'));
+function rithook_inventory_page () {
+    return theme('rithook_inventory_page', array('title' => 'Testing'));
+}
+function rithook_cutomer_page () {
+    return theme('rithook_cutomer_page', array('title' => 'Testing'));
+}
+function rithook_supplier_page () {
+    return theme('rithook_supplier_page', array('title' => 'Testing'));
 }
 
 
@@ -20,9 +36,17 @@ function rithook_filter_page () {
 */
 function rithook_theme($existing, $type, $theme, $path) {
     return array(
-        'rithook_home_page' => array(
+        'rithook_inventory_page' => array(
             'variables' => array('title' => NULL),
-            'template' => 'homepage',
+            'template' => 'inventory',
+        ),
+        'rithook_cutomer_page' => array(
+            'variables' => array('title' => NULL),
+            'template' => 'cutomer',
+        ),
+        'rithook_supplier_page' => array(
+            'variables' => array('title' => NULL),
+            'template' => 'inventory',
         ),
     );
 } 
