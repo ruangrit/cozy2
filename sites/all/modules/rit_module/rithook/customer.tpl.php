@@ -29,6 +29,7 @@ foreach ($nodes as $node) {
 				print '<div class="title16">' .$title_item[0]['#markup'].' '. $node->title .' '. $node->field_last_name['und'][0]['value']. '</div>';
 
 				print '<div class="normal14">' .$email.' </div>';
+				print '<a href="'.$path.'" class="normal14"><b>Read more...</b></a>';
 
 			print '</div>';
 		print '</div>';
