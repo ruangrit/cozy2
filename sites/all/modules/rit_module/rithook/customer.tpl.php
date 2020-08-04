@@ -22,10 +22,11 @@ foreach ($nodes as $node) {
 			
 
 			print '<div class="col-xs-12">';
-
+			
+				$email = rit_hook_display_multiple_comma($node->field_email['und']);
 				print '<div class="code14"><a href="'.$path.'">' . $node->field_customer_code['und'][0]['value'] . '</a></div>';
 				print '<div class="title16">' . $node->title . '</div>';
-				print '<div class="normal14">' .$node->field_email['und'][0]['email'].' </div>';
+				print '<div class="normal14">' .$email.' </div>';
 
 			print '</div>';
 		print '</div>';

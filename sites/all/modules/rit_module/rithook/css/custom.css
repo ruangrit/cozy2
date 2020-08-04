@@ -85,7 +85,7 @@ img.center {
 	line-height: 1.5em;
 }
 
-.code14 a{
+.code14, .code14 a{
 	color: #98B8CA; 
 	font-size: 14px;
 	line-height: 1.5em;
