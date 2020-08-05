@@ -91,9 +91,14 @@ foreach ($result as $record) {
 
 $nodes = node_load_multiple($nids);
 
+//pagger
+$per_page = 2;
+$current_page = pager_default_initialize(count($nodes), $per_page);
+$chunks = array_chunk($nodes, $per_page, TRUE);
+
 $total_node = count($nodes);
 $run_num = 1;
-foreach ($nodes as $node) {
+foreach ($chunks[$current_page] as $node) {
 	
 	$path = drupal_get_path_alias('node/'.$node->nid);
 	if ($run_num == $total_node) {
@@ -122,6 +127,5 @@ foreach ($nodes as $node) {
 	$run_num++;
 }
 
-
-
+print theme('pager', array('quantity', count($nodes)));
 
