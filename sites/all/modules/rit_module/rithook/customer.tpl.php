@@ -92,13 +92,17 @@ foreach ($result as $record) {
 $nodes = node_load_multiple($nids);
 
 //pagger
-$per_page = 2;
+$per_page = 3;
 $current_page = pager_default_initialize(count($nodes), $per_page);
 // Todo เปลี่ยนใน load เฉพาะเท่าที่แสดงแต่ละหน้า ไม่ใช่โหลดทั้งหมดทุกๆที
 $chunks = array_chunk($nodes, $per_page, TRUE);
 
 $total_node = count($nodes);
 $run_num = 1;
+
+// table 
+$header = array('Customer ID', 'Name', 'Email', 'Link');
+$rows = array();
 foreach ($chunks[$current_page] as $node) {
 	
 	$path = drupal_get_path_alias('node/'.$node->nid);
@@ -125,8 +129,17 @@ foreach ($chunks[$current_page] as $node) {
 			print '</div>';
 		print '</div>';
 	print '</div>';
+
+	$rows[] = array(
+		$node->field_customer_code['und'][0]['value'],
+		$title_item[0]['#markup'].' '. $node->title .' '. $node->field_last_name['und'][0]['value'],
+		$email,
+		'<a href="'.$path.'" class="normal14"><b>Read more...</b></a>',
+		);
+
 	$run_num++;
 }
 
+print theme('table', array('header' => $header, 'rows' => $rows));
 print theme('pager', array('quantity', count($nodes)));
 
