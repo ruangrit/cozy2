@@ -58,10 +58,10 @@ $sql = '
 	FROM {node} n   
 	LEFT JOIN {field_data_field_in_contact_number} ct
 	ON n.nid = ct.entity_id
-	WHERE n.type = :type 
+	WHERE (n.type = :type AND n.status = :status)
 ';
 
-$params = array(':type'  => 'customers');
+$params = array(':type'  => 'customers', ':status' => 1);
 
 if ($search_name != '' AND $search_phone != '') {
 	$sql .= 'AND (n.title LIKE :title AND ct.field_in_contact_number_value LIKE :phone)';
