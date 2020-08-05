@@ -94,6 +94,7 @@ $nodes = node_load_multiple($nids);
 //pagger
 $per_page = 2;
 $current_page = pager_default_initialize(count($nodes), $per_page);
+// Todo เปลี่ยนใน load เฉพาะเท่าที่แสดงแต่ละหน้า ไม่ใช่โหลดทั้งหมดทุกๆที
 $chunks = array_chunk($nodes, $per_page, TRUE);
 
 $total_node = count($nodes);
