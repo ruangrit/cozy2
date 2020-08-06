@@ -2,14 +2,12 @@ name = International Phone Field
 description = The international_phone module allows administrators to define a field type for international phone numbers.
 package = Fields
 dependencies[] = field
-dependencies[] = jquery_update
-dependencies[] = libraries
 core = 7.x
 project = "international_phone"
 
-; Information added by Drupal.org packaging script on 2017-07-22
-version = "7.x-2.0"
+; Information added by Drupal.org packaging script on 2015-02-13
+version = "7.x-1.x-dev"
 core = "7.x"
 project = "international_phone"
-datestamp = "1500739144"
+datestamp = "1423814281"
 

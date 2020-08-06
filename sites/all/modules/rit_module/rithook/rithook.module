@@ -81,8 +81,11 @@ function rithook_form_alter(&$form, &$form_state, $form_id) {
 	}
 
 	if ($form_id == 'customers_node_form') {
+		
+		if (arg(2) != 'edit') {
+			drupal_set_title('New Customer');
 
-		drupal_set_title('New Customer');
+		}
 
 		$form['field_customer_code']['#access'] = FALSE;
 		$form['field_customer_source']['#access'] = FALSE;

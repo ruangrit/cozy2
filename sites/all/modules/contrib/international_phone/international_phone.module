@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Defines a field for attaching international phone fields to entities.
+ * Allow users to add international phone fields with a entity.
  */
 
 /**
@@ -59,20 +59,8 @@ function international_phone_field_formatter_view($entity_type, $entity, $field,
       }
     }
     $element[$delta]['#markup'] = $text;
-    $element['#attached']['libraries_load'][] = array('intl-tel-input');
-    $element['#attached']['js'][] = array(
-      'type' => 'setting',
-      'data' => array(
-        'internationalPhone' => array(
-          'utilsScriptPath' => '/'.libraries_get_path('intl-tel-input') . '/build/js/utils.js',
-          'defaultCountryCode' => $instance['settings']['international_phone_default_country_code'],
-        ),
-      ),
-    );
-    $element['#attached']['js'][] = array(
-      'type' => 'file',
-      'data' => drupal_get_path('module', 'international_phone') . '/js/international_phone.js',
-    );
+    $element['#attached']['js'][] = drupal_get_path('module', 'international_phone') . '/js/intlTelInput.js';
+    $element['#attached']['js'][] = drupal_get_path('module', 'international_phone') . '/js/international_phone.js';
   }
   return $element;
 }
@@ -93,7 +81,7 @@ function international_phone_field_widget_info() {
  * Implements hook_field_widget_form().
  */
 function international_phone_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
-  //dpm($instance);
+  drupal_add_css(drupal_get_path('module', 'international_phone') . '/css/intlTelInput.css');
   $element['value'] = array(
     '#type' => 'textfield',
     '#title' => check_plain($element['#title']),
@@ -101,68 +89,10 @@ function international_phone_field_widget_form(&$form, &$form_state, $field, $in
     '#default_value' => isset($items[$delta]['value']) ? $items[$delta]['value'] : '',
     '#required' => $element['#required'],
     '#size' => 17,
-    '#attributes' => array(
-      'class' => array(
-        'international_phone-number',
-      ),
-    ),
-    '#attached' => array(
-      'libraries_load' => array(
-        array(
-          'intl-tel-input',
-        ),
-      ),
-      'js' => array(
-        array(
-          'type' => 'setting',
-          'data' => array(
-            'internationalPhone' => array(
-              'utilsScriptPath' => '/'.libraries_get_path('intl-tel-input') . '/build/js/utils.js',
-              'defaultCountryCode' => $instance['settings']['international_phone_default_country_code'],
-            ),
-          ),
-        ),
-        array(
-          'type' => 'file',
-          'data' => drupal_get_path('module', 'international_phone') . '/js/international_phone.js',
-        ),
-      ),
-    ),
+    '#attributes' => array('class' => array('international_phone-number')),
   );
-  dpm($element);
+  //drupal_add_js('http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js', 'external');
+  drupal_add_js(drupal_get_path('module', 'international_phone') . '/js/intlTelInput.js');
+  drupal_add_js(drupal_get_path('module', 'international_phone') . '/js/international_phone.js');
   return $element;
-}
-
-/**
- * Implements hook_libraries_info().
- */
-function international_phone_libraries_info() {
-  $libraries['intl-tel-input'] = array(
-    'name' => 'International Phone Input',
-    'vendor url' => 'https://github.com/jackocnr/intl-tel-input',
-    'download url' => 'https://github.com/jackocnr/intl-tel-input/archive/v9.2.0.tar.gz',
-    'version arguments' => array(
-      'file' => 'package.json',
-      'pattern' => '/"version": "(\d+\.\d+\.\d+)"/', // 9.2.0
-      'lines' => 7,
-    ),
-    'files' => array(
-      'css' => array(
-        'build/css/intlTelInput.css',
-      ),
-      'js' => array(
-        'build/js/intlTelInput.js',
-      ),
-    ),
-    'variants' => array(
-      'minified' => array(
-        'files' => array(
-          'js' => array(
-            'build/js/intlTelInput.min.js',
-          ),
-        ),
-      ),
-    ),
-  );
-  return $libraries;
 }
