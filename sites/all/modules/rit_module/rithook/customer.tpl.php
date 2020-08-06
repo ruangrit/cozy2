@@ -65,6 +65,7 @@ else if($search_phone != ''){
 	$params[':phone'] = '%'.$search_phone.'%';
 }
 
+$sql .= ' ORDER BY n.nid DESC';
 
 $result = db_query($sql, $params);
 
@@ -75,7 +76,7 @@ foreach ($result as $record) {
 
 
 //pagger
-$per_page = 3;
+$per_page = 5;
 $current_page = pager_default_initialize(count($nids), $per_page);
 $chunks = array_chunk($nids, $per_page, TRUE);
 $total_node = count($nids);

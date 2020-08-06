@@ -140,11 +140,11 @@ function rithook_form_alter(&$form, &$form_state, $form_id) {
 }
 
 function rithook_node_submit($node, $form, &$form_state) {
-
-	if ($node->type == 'suppliers' && $node->field_supplier_code != "") {
+	
+	if ($node->type == 'suppliers' && !isset($node->field_supplier_code['und'][0])) {
 		$node->field_supplier_code['und'][0]['value'] = gen_node_code($node);
 	}
-	elseif ($node->type == 'customers' && $node->field_customer_code != "") {
+	elseif ($node->type == 'customers' && !isset($node->field_customer_code['und'][0])) {
 		$node->field_customer_code['und'][0]['value'] = gen_node_code($node);
 	}
 	elseif ($node->type == 'products') {
@@ -153,6 +153,7 @@ function rithook_node_submit($node, $form, &$form_state) {
 			$node->field_product_code['und'][0]['value'] = gen_node_code($node);
 		}
 	}
+	
 }
 
 function gen_node_code($node) {
