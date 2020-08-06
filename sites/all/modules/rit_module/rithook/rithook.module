@@ -140,7 +140,8 @@ function rithook_form_alter(&$form, &$form_state, $form_id) {
 }
 
 function rithook_node_submit($node, $form, &$form_state) {
-	
+	dpm($node);
+	dpm($form);
 	if ($node->type == 'suppliers' && !isset($node->field_supplier_code['und'][0])) {
 		$node->field_supplier_code['und'][0]['value'] = gen_node_code($node);
 	}

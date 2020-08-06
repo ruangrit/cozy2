@@ -16,7 +16,7 @@ if (isset($_GET['field_in_contact_number'])) {
 
 <div class="search-form container">
 	<div class="row">
-		<div class="col-xs-12 text-right">
+		<div class="col-xs-12 text-left">
 		<form method="GET">
 			<b>Search customer by:</b>
 		
