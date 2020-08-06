@@ -5,8 +5,14 @@
   Drupal.behaviors.international_phone = {
     attach: function (context, settings) {
       $(".international_phone-number").intlTelInput({
+        //utilsScript: settings.internationalPhone.utilsScriptPath,
+        autoPlaceholder: true,
         //utilsScript: "lib/libphonenumber/build/utils.js"
       });
+
+      var $fields = $(context).find('.international_phone-number');
+      console.log($fields.length);
+
     }
   };
 
