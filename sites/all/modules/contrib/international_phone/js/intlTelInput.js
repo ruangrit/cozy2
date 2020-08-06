@@ -295,6 +295,7 @@ https://github.com/Bluefieldscom/intl-tel-input.git
         },
         _initKeyListeners: function() {
             var that = this;
+
             if (this.options.autoFormat) {
                 // format number and update flag on keypress
                 // use keypress event as we want to ignore all input except for a select few keys,
@@ -751,6 +752,7 @@ https://github.com/Bluefieldscom/intl-tel-input.git
                     }
                 }
             }
+            //console.log(dialCode);
             return dialCode;
         },
         /********************
