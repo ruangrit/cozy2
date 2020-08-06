@@ -29,6 +29,7 @@ if (isset($_GET['field_in_contact_number'])) {
 
 	</div>
 </div>
+<div class="marb20"></div>
 
 
 <?php
@@ -37,21 +38,6 @@ if ($user->uid == 0) {
 	//print 'Login to view product.';
 	//return false;
 }
-
-/*
-$query = new EntityFieldQuery();
-
-$query->entityCondition('entity_type', 'node')
-->entityCondition('bundle', 'customers')
-->propertyCondition('status', 1)
-->fieldCondition('field_in_contact_number', 'value', $search_phone. '%', 'like')
-->propertyCondition('title', $search_name. '%', 'like')
-->range(0, 10)
-->addMetaData('account', user_load(1)); // Run the query as user 1.
-
-$result = $query->execute();
-*/
-
 
 $sql = '
 	SELECT DISTINCT n.nid 
@@ -88,55 +74,31 @@ foreach ($result as $record) {
 }
 
 
-
-$nodes = node_load_multiple($nids);
-
 //pagger
 $per_page = 3;
-$current_page = pager_default_initialize(count($nodes), $per_page);
-// Todo เปลี่ยนใน load เฉพาะเท่าที่แสดงแต่ละหน้า ไม่ใช่โหลดทั้งหมดทุกๆที
-$chunks = array_chunk($nodes, $per_page, TRUE);
-
-$total_node = count($nodes);
-$run_num = 1;
+$current_page = pager_default_initialize(count($nids), $per_page);
+$chunks = array_chunk($nids, $per_page, TRUE);
+$total_node = count($nids);
 
 // table 
-$header = array('Customer ID', 'Name', 'Email', 'Link');
+$header = array('No' ,'Customer ID', 'Name', 'Email', 'Operations');
 $rows = array();
-foreach ($chunks[$current_page] as $node) {
+
+$nodes = node_load_multiple($chunks[$current_page]);
+$run_num = 0;
+foreach ($nodes as $node) {
 	
 	$path = drupal_get_path_alias('node/'.$node->nid);
-	if ($run_num == $total_node) {
-		print '<div class="container" style="padding-top: 20px;">';
-	}
-	else {
-		print '<div class="container" style="border-bottom: 1px solid #eee; padding-top: 20px;">';
-
-	}
-		print '<div class="row marb20">';
-			
-
-			print '<div class="col-xs-12">';
-				$email = rit_hook_display_multiple_comma($node->field_email['und']);
-				print '<div class="code14">' . $node->field_customer_code['und'][0]['value'] . '</div>';
-
-				$title_item = field_view_field('node', $node, 'field_title'); 
-				print '<div class="title16">' .$title_item[0]['#markup'].' '. $node->title .' '. $node->field_last_name['und'][0]['value']. '</div>';
-
-				print '<div class="normal14">' .$email.' </div>';
-				print '<a href="'.$path.'" class="normal14"><b>Read more...</b></a>';
-
-			print '</div>';
-		print '</div>';
-	print '</div>';
+	$email = rit_hook_display_multiple_comma($node->field_email['und']);
+	$title_item = field_view_field('node', $node, 'field_title'); 
 
 	$rows[] = array(
+		($current_page * $per_page) + $run_num + 1,
 		$node->field_customer_code['und'][0]['value'],
 		$title_item[0]['#markup'].' '. $node->title .' '. $node->field_last_name['und'][0]['value'],
 		$email,
-		'<a href="'.$path.'" class="normal14"><b>Read more...</b></a>',
+		l('View', 'node/'.$node->nid) .' '. l('Edit', 'node/'.$node->nid.'/edit'),
 		);
-
 	$run_num++;
 }
 
