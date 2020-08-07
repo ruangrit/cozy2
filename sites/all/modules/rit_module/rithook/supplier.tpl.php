@@ -69,15 +69,64 @@ $sql .= ' ORDER BY n.nid DESC';
 
 $result = db_query($sql, $params);
 
+
+
+// Coordinator search
+if ($search_name != '' OR $search_phone != '') {
+
+
+	$sql2 = '
+		SELECT DISTINCT pc.entity_id nid 
+		FROM {field_data_field_p_coordinator} pc
+		LEFT JOIN {field_data_field_p_name} fn
+		ON pc.field_p_coordinator_value = fn.entity_id
+		LEFT JOIN {field_data_field_p_contact_number} fc
+		ON pc.field_p_coordinator_value = fn.entity_id
+
+	';
+
+	$params2 = array();
+	if ($search_name != '' AND $search_phone != '') {
+		$sql2 .= "WHERE  fn.field_p_name_value LIKE :title AND pc.field_p_contact_number_value LIKE :phone";
+		$params2[':title'] = '%'.$search_name.'%';
+		$params2[':phone'] = '%'.$search_phone.'%';
+	}
+	else if ($search_name !== '') {
+		$sql2 .= " WHERE fn.field_p_name_value LIKE :title";
+		$params2[':title'] = '%'.$search_name.'%';
+	}
+	else if($search_phone != ''){
+		$sql2 .= " WHERE fc.field_p_contact_number_value LIKE :phone";
+		$params2[':phone'] = '%'.$search_phone.'%';
+	}
+
+	$sql3 = 'SELECT DISTINCT n.nid FROM {node} n WHERE n.status = :status AND n.type = :type AND n.nid IN('.$sql2.')';
+	$params3 = array(':status' => 1, ':type' => 'suppliers');
+	$params3 = array_merge($params2, $params3);
+	$result2 = db_query($sql3, $params3);
+	$nids2 = array();
+	foreach ($result2 as $record2) {
+		$nids2[] = $record2->nid;
+	}
+
+}
+
 $nids = array();
 foreach ($result as $record) {
 	$nids[] = $record->nid;
 }
+
+// Merge node from 2 way search
+if (isset($nids2) && count($nids2) != 0 ) {
+	$nids = array_unique (array_merge ($nids, $nids2));
+
+}
+
 if(count($nids) == 0) {
 	print '-- No data ---';
 }
 else {
-		
+
 	//pagger
 	$per_page = 4;
 	$current_page = pager_default_initialize(count($nids), $per_page);
