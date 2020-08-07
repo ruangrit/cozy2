@@ -19,7 +19,9 @@
             utilsScript: settings.internationalPhone.utilsScriptPath,
             autoPlaceholder: true,
             nationalMode: false,
-            separateDialCode: true,
+            //separateDialCode: true,
+            initialCountry: "th",
+            preferredCountries: [ "us", "gb", "th" ],
           });
 
           // Make the International Phone field cognizant of country code fields.
@@ -51,7 +53,7 @@
           // On key up or change remove the error class.
           $fields.on('keyup change', function () {
             $(this).removeClass('error');
-            console.log($(this).getNumber());
+            //console.log($(this).getNumber());
           });
 
           // On Blur, softly validate the number entered.
