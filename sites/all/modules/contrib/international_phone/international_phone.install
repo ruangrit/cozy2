@@ -19,3 +19,48 @@ function international_phone_field_schema($field) {
     ),
   );
 }
+
+/**
+ * Implements hook_requirements().
+ *
+ * Politely remind the user to update their jQuery version.
+ */
+function international_phone_requirements($phase) {
+  $requirements = array();
+
+  $t = get_t();
+  if ($phase == 'install') {
+    $jquery_update_jquery_version = variable_get('jquery_update_jquery_version', 'default');
+    if ($jquery_update_jquery_version == 'default'
+      || version_compare($jquery_update_jquery_version, '1.7', '<')
+    ) {
+      $requirements['jquery_update_jquery_version'] = array(
+        'title' => $t('Default jQuery version is too low.'),
+        'description' => $t(
+          'Please ensure that your site is running jQuery v1.7 or above for International Phone fields to work. ' .
+          'In the meantime, International Phone fields will appear as standard text fields for all FRONT-END pages.' .
+          'You can correct this with jQuery Update <a href="/admin/config/development/jquery_update">configuration</a>.'
+        ),
+        'value' => check_plain($jquery_update_jquery_version),
+        'severity' => REQUIREMENT_WARNING,
+      );
+    }
+    $jquery_update_jquery_admin_version = variable_get('jquery_update_jquery_admin_version', 'default');
+    if ($jquery_update_jquery_admin_version == 'default'
+      || version_compare($jquery_update_jquery_admin_version, '1.7', '<')
+    ) {
+      $requirements['jquery_update_jquery_admin_version'] = array(
+        'title' => $t('Alternate jQuery version for administrative pages is too low.'),
+        'description' => $t(
+          'Please ensure that your site is running jQuery v1.7 or above for International Phone fields to work. ' .
+          'In the meantime, International Phone fields will appear as standard text fields for all ADMIN pages.' .
+          'You can correct this with jQuery Update <a href="/admin/config/development/jquery_update">configuration</a>.'
+        ),
+        'value' => check_plain($jquery_update_jquery_admin_version),
+        'severity' => REQUIREMENT_WARNING,
+      );
+    }
+  }
+
+  return $requirements;
+}

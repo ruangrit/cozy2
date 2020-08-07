@@ -18,8 +18,8 @@ $(document).ready(function() {
 	});
 
 	function force_revision_new() {
-		$('#edit-revision').prop('checked', true);
-		$('#edit-revision').attr("disabled", true)
+		//==$('#edit-revision').prop('checked', true);
+		//==$('#edit-revision').attr("disabled", true)
 
 	}
 
