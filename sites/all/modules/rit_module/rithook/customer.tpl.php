@@ -7,8 +7,8 @@ $search_phone = '';
 if (isset($_GET['title'])) {
 	$search_name  = $_GET['title'];
 }
-if (isset($_GET['field_in_contact_number'])) {
-	$search_phone = $_GET['field_in_contact_number'];
+if (isset($_GET['phone'])) {
+	$search_phone = $_GET['phone'];
 }
 
 
@@ -22,7 +22,7 @@ if (isset($_GET['field_in_contact_number'])) {
 		
 			
 				Name: <input type="text" name="title" value="<?php print $search_name;?>">
-				Contact number: <input type="text" name="field_in_contact_number" value="<?php print $search_phone; ?>">
+				Contact number: <input type="text" name="phone" value="<?php print $search_phone; ?>">
 				<input type="submit" value="Search">
 			</form>
 		</div>
@@ -74,35 +74,42 @@ foreach ($result as $record) {
 	$nids[] = $record->nid;
 }
 
-
-//pagger
-$per_page = 5;
-$current_page = pager_default_initialize(count($nids), $per_page);
-$chunks = array_chunk($nids, $per_page, TRUE);
-$total_node = count($nids);
-
-// table 
-$header = array('No' ,'Customer ID', 'Name', 'Email', 'Operations');
-$rows = array();
-
-$nodes = node_load_multiple($chunks[$current_page]);
-$run_num = 0;
-foreach ($nodes as $node) {
-	
-	$path = drupal_get_path_alias('node/'.$node->nid);
-	$email = rit_hook_display_multiple_comma($node->field_email['und']);
-	$title_item = field_view_field('node', $node, 'field_title'); 
-
-	$rows[] = array(
-		($current_page * $per_page) + $run_num + 1,
-		$node->field_customer_code['und'][0]['value'],
-		$title_item[0]['#markup'].' '. $node->title .' '. $node->field_last_name['und'][0]['value'],
-		$email,
-		l('View', 'node/'.$node->nid) .' '. l('Edit', 'node/'.$node->nid.'/edit'),
-		);
-	$run_num++;
+if(count($nids) == 0) {
+	print '-- No data ---';
 }
+else {
+	
+	//pagger
+	$per_page = 5;
+	$current_page = pager_default_initialize(count($nids), $per_page);
+	$chunks = array_chunk($nids, $per_page, TRUE);
+	$total_node = count($nids);
 
-print theme('table', array('header' => $header, 'rows' => $rows));
-print theme('pager', array('quantity', count($nodes)));
+	// table 
+	$header = array('No' ,'Customer ID', 'Name', 'Email', 'Operations');
+	$rows = array();
 
+	$nodes = node_load_multiple($chunks[$current_page]);
+	$run_num = 0;
+	foreach ($nodes as $node) {
+		
+		$path = drupal_get_path_alias('node/'.$node->nid);
+		$email = rit_hook_display_multiple_comma($node->field_email['und']);
+		$title_item = field_view_field('node', $node, 'field_title'); 
+
+		$rows[] = array(
+			($current_page * $per_page) + $run_num + 1,
+			$node->field_customer_code['und'][0]['value'],
+			$title_item[0]['#markup'].' '. $node->title .' '. $node->field_last_name['und'][0]['value'],
+			$email,
+			l('View', 'node/'.$node->nid) .' '. l('Edit', 'node/'.$node->nid.'/edit'),
+			);
+		$run_num++;
+	}
+
+	print theme('table', array('header' => $header, 'rows' => $rows));
+	print theme('pager', array('quantity', count($nodes)));
+
+
+
+}
