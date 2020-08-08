@@ -101,24 +101,31 @@
     hide($content['comments']);
     hide($content['links']);
     hide($content['field_tags']);
-
     //print render($content);
+    print '<div class="code14">'.render($content['field_supplier_code']).'</div>';
+    print '<div class="title16">'.$node->title.'</div>';
 
-    $email = rit_hook_display_multiple_comma($node->field_email['und']);
-    print '<div class="code14">' . $node->field_customer_code['und'][0]['value'] . '</div>';
-    $title_item = field_view_field('node', $node, 'field_title'); 
-    print '<div class="title16">' .$title_item[0]['#markup'].' '. $node->title .' '. $node->field_last_name['und'][0]['value']. '</div>';    print '<div class="normal14">' .$email.' </div>';
+    print '<div class="normal14">';
 
-    print '<div> <b>Birthday - </b>' .date('d/m/Y', strtotime($node->field_birthday['und'][0]['value'])). '</div>';
+      print render($content['field_supplier_category']);
+      print render($content['field_tax_number']);
+      print render($content['field_company_owner']);
+      print render($content['field_supplier_head_office']);
+      print render($content['field_website']);
+      print render($content['field_email']);
+      print render($content['field_contact_number']);
+      print render($content['field_fax_number']);
+    print '</div>';
 
-    //$country_item = field_get_items('node', $node, 'field_country');
-    //print '<div> Nationallity - ' .$country_item[0]['safe']. '</div>';
+    print '<br />';
 
-    //dpm($address_item);
-    //dpm($content);
-    print render($content['field_country']);
-    print render($content['field_customer_address']);
-    print render($content['field_in_contact_number']);
+    print '<div class="code14"><b>Coordinator</b></div>';
+
+    print '<div class="normal14">';
+      print render($content['field_p_coordinator']);
+
+    print '</div>';
+    
 
   ?>
   <?php
@@ -135,11 +142,17 @@
   <?php print render($content['comments']); ?>
 </article>
 
+
 <style>
 .page-header {
   display: none;
 }
+.field-name-field-p-name {
+  color: #666;
+}
+
+.field-name-field-p-coordinator .field-item {
+  margin-bottom: 8px;
+}
 </style>
-
-
 

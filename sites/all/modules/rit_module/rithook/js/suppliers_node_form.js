@@ -1,8 +1,8 @@
 $ = jQuery;
 $(document).ready(function() {
 
-	if ($('#field-p-coordinators-values').length == 0) {
-
+	if ($('#field-p-coordinator-values').length == 0) {
+		//console.log('click');
 		$('#edit-field-p-coordinator-und-add-more > button').trigger('mousedown');
 
 	}

@@ -134,19 +134,19 @@ else {
 	$total_node = count($nids);
 
 	// table 
-	$header = array('No' ,'Supplier ID', 'Name', 'Email', 'Operations');
+	$header = array('No' ,'Supplier ID', 'Name', 'Catagory', 'Operations');
 	$rows = array();
 
 	$nodes = node_load_multiple($chunks[$current_page]);
 	$run_num = 0;
 	foreach ($nodes as $node) {
-		
+		$cat = taxonomy_term_load($node->field_supplier_category['und'][0]['tid']);
 		$email = rit_hook_display_multiple_comma($node->field_email['und']);
 		$rows[] = array(
 			($current_page * $per_page) + $run_num + 1,
 			$node->field_supplier_code['und'][0]['value'],
 			$node->title,
-			$email,
+			$cat->name,
 			l('View', 'node/'.$node->nid) .' '. l('Edit', 'node/'.$node->nid.'/edit'),
 			);
 		$run_num++;
