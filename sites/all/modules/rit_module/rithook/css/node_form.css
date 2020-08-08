@@ -12,7 +12,7 @@
 	display: none !important;
 }
 .form-actions {
-	text-align: center;
+	/*text-align: center;*/
 }
 
 .form-item-sticky, .form-item-promote {
@@ -24,8 +24,15 @@
 	font-size: 11px !important;
 	margin-top: 3px;
 }
-
-body, #edit-field-email td, #edit-field-in-contact-number td, .panel {
+#edit-field-p-coordinator-und-0-paragraph-bundle-title,
+#edit-field-p-coordinator-und-1-paragraph-bundle-title,
+#edit-field-p-coordinator-und-2-paragraph-bundle-title,
+#edit-field-p-coordinator-und-3-paragraph-bundle-title,
+#edit-field-p-coordinator-und-4-paragraph-bundle-title,
+#edit-field-p-coordinator-und-5-paragraph-bundle-title {
+	display: none !important;
+}
+body, #edit-field-email td, #edit-field-in-contact-number td, .panel, .paragraphs-item-type-coordinators {
 
 	color: #242424 !important;
 	background: #F3F4F3 !important;
@@ -52,7 +59,7 @@ fieldset.date-combo .container-inline-date .date-padding {
 	padding: 0px !important;
 }
 
-#edit-field-in-contact-number .field-multiple-drag, #edit-field-email .field-multiple-drag , #edit-field-customer-address .field-multiple-drag {
+#edit-field-p-coordinator .field-multiple-drag, #edit-field-in-contact-number .field-multiple-drag, #edit-field-email .field-multiple-drag , #edit-field-customer-address .field-multiple-drag {
 	display: none;
 }
 

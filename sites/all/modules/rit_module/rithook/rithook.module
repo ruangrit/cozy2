@@ -107,7 +107,11 @@ function rithook_form_alter(&$form, &$form_state, $form_id) {
 
 	elseif($form_id == 'suppliers_node_form') {
 
-		drupal_set_title('New Supplier');
+		if (arg(2) != 'edit') {
+			drupal_set_title('New Supplier');
+
+		}
+
 
 		$form['field_supplier_code']['#access'] = FALSE;
 
@@ -124,7 +128,11 @@ function rithook_form_alter(&$form, &$form_state, $form_id) {
 
 	}
 	elseif($form_id == 'products_node_form') {
-		drupal_set_title('New Product');
+
+		if (arg(2) != 'edit') {
+			drupal_set_title('New Product');
+		}
+
 		$form['field_product_supplier']['und']['#suffix'] .= '<div>
 			<a class="various" data-fancybox-type="iframe" href="/node/add/suppliers">Add new supplier</a>
 		</div>';
