@@ -1,4 +1,60 @@
 <?php
+$search_name = '';
+$search_phone = '';
+if (isset($_GET['title'])) {
+	$search_name  = $_GET['title'];
+}
+if (isset($_GET['phone'])) {
+	$search_phone = $_GET['phone'];
+}
+
+
+?>
+
+<div class="search-form container">
+	<div class="row">
+		<div class="col-xs-12 text-left text-center">
+		<form method="GET">
+			<div class="col-xs-4">
+				<select name="order">
+					<option value="">-FEATURE-</option>
+					<option value="lth">Price - Low to High</option>
+					<option value="htl">Price - High to Low</option>
+					<option value="atz">Alphabetically - A to Z</option>
+					<option value="zta">Alphabetically - Z to A</option>
+					<option value="nto">Date - New to Old</option>
+					<option value="otn">Date - Old to New</option>
+				</select>
+			</div>
+			
+			<?php
+				$vocabulary = taxonomy_vocabulary_machine_name_load('product_category');
+				$terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
+				dpm($terms);
+			?>	
+			<div class="col-xs-4 text-center">
+				<select name="cat">
+					<option value="">PRODUCT CATEGORY</option>
+
+				</select>	
+			</div>
+
+			<div class="col-xs-4 text-center">
+				<select name="cat">
+					<option value="">PRODUCT CATEGORY</option>
+
+				</select>	
+			</div>
+
+			<input type="submit" value="Search">
+			</form>
+		</div>
+
+	</div>
+</div>
+<div class="marb20"></div>
+
+<?php
 global $user;
 if ($user->uid == 0) {
 	//print 'Login to view product.';

@@ -19,7 +19,11 @@ img.center {
 }
 
 
+body, #edit-field-email td, #edit-field-in-contact-number td, .panel, .paragraphs-item-type-coordinators, .search-form input[type="text"], .search-form select{
 
+	color: #242424 !important;
+	background: #F3F4F3 !important;
+}
 
 @font-face {
     font-family: 'hatton';
