@@ -13,9 +13,9 @@ if (isset($_GET['phone'])) {
 
 <div class="search-form container">
 	<div class="row">
-		<div class="col-xs-12 text-left text-center">
+		<div class="col-xs-12">
 		<form method="GET">
-			<div class="col-xs-4">
+			<div class="col-xs-3">
 				<select name="order">
 					<option value="">-FEATURE-</option>
 					<option value="lth">Price - Low to High</option>
@@ -26,27 +26,88 @@ if (isset($_GET['phone'])) {
 					<option value="otn">Date - Old to New</option>
 				</select>
 			</div>
-			
+<!--############################################ Cat  -->			
 			<?php
 				$vocabulary = taxonomy_vocabulary_machine_name_load('product_category');
-				$terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
-				dpm($terms);
+				$terms = taxonomy_get_tree($vocabulary->vid);
 			?>	
-			<div class="col-xs-4 text-center">
+			<div class="col-xs-3 text-center">
 				<select name="cat">
 					<option value="">PRODUCT CATEGORY</option>
+					<?php
+						foreach ($terms as $value) {
+							if ($value->parents[0] == 0) {
+								print '<option value="'.$value->tid.'">'.$value->name.'</option>';
+
+							}
+							else {
+								print '<option value="'.$value->tid.'">-'.$value->name.'</option>';
+
+							}
+						}
+					?>
 
 				</select>	
 			</div>
-
-			<div class="col-xs-4 text-center">
+<!--############################################ End Cat  -->			
+<!--############################################ Color  -->			
+			<?php
+				$vocabulary = taxonomy_vocabulary_machine_name_load('product_color');
+				$terms = taxonomy_get_tree($vocabulary->vid);
+			?>	
+			<div class="col-xs-3 text-center">
 				<select name="cat">
-					<option value="">PRODUCT CATEGORY</option>
+					<option value="">Color</option>
+					<?php
+						foreach ($terms as $value) {
+							if ($value->parents[0] == 0) {
+								print '<option value="'.$value->tid.'">'.$value->name.'</option>';
+
+							}
+							else {
+								print '<option value="'.$value->tid.'">-'.$value->name.'</option>';
+
+							}
+						}
+					?>
 
 				</select>	
 			</div>
+<!--############################################ End Cat  -->			
 
-			<input type="submit" value="Search">
+<!--############################################ Mat -->			
+			<?php
+				$vocabulary = taxonomy_vocabulary_machine_name_load('product_material');
+				$terms = taxonomy_get_tree($vocabulary->vid);
+			?>	
+			<div class="col-xs-3 text-center">
+				<select name="cat">
+					<option value="">MATERIAL</option>
+					<?php
+						foreach ($terms as $value) {
+							if ($value->parents[0] == 0) {
+								print '<option value="'.$value->tid.'">'.$value->name.'</option>';
+
+							}
+							else {
+								print '<option value="'.$value->tid.'">-'.$value->name.'</option>';
+
+							}
+						}
+					?>
+
+				</select>	
+			</div>
+<!--############################################ End Cat  -->			
+			<div class="col-xs-12">
+				Supplise name: <input type="text" name="sub_name">
+			</div>
+			<div class="col-xs-12 marb20">
+
+				Product name/code: <input type="text" name="prd_name">
+			</div>
+
+			<div><input type="submit" value="Search"></div>
 			</form>
 		</div>
 
