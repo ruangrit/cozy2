@@ -1,13 +1,33 @@
 <?php
-$search_name = '';
-$search_phone = '';
-if (isset($_GET['title'])) {
-	$search_name  = $_GET['title'];
+$order = '';
+$cat = '';
+$color = '';
+$mat = '';
+$ava = '';
+$sub_name = '';
+$prd_name = '';
+if (isset($_GET['order'])) {
+	$order  = $_GET['order'];
 }
-if (isset($_GET['phone'])) {
-	$search_phone = $_GET['phone'];
+if (isset($_GET['cat'])) {
+	$cat = $_GET['cat'];
 }
 
+if (isset($_GET['color'])) {
+	$color = $_GET['color'];
+}
+if (isset($_GET['mat'])) {
+	$mat = $_GET['mat'];
+}
+if (isset($_GET['ava'])) {
+	$ava = $_GET['ava'];
+}
+if (isset($_GET['sub_name'])) {
+	$sub_name = $_GET['sub_name'];
+}
+if (isset($_GET['prd_name'])) {
+	$prd_name = $_GET['prd_name'];
+}
 
 ?>
 
@@ -15,7 +35,7 @@ if (isset($_GET['phone'])) {
 	<div class="row">
 		<div class="col-xs-12">
 		<form method="GET">
-			<div class="col-xs-3">
+			<div class="col-xs-4">
 				<select name="order">
 					<option value="">-FEATURE-</option>
 					<option value="lth">Price - Low to High</option>
@@ -31,7 +51,7 @@ if (isset($_GET['phone'])) {
 				$vocabulary = taxonomy_vocabulary_machine_name_load('product_category');
 				$terms = taxonomy_get_tree($vocabulary->vid);
 			?>	
-			<div class="col-xs-3 text-center">
+			<div class="col-xs-4">
 				<select name="cat">
 					<option value="">PRODUCT CATEGORY</option>
 					<?php
@@ -55,8 +75,8 @@ if (isset($_GET['phone'])) {
 				$vocabulary = taxonomy_vocabulary_machine_name_load('product_color');
 				$terms = taxonomy_get_tree($vocabulary->vid);
 			?>	
-			<div class="col-xs-3 text-center">
-				<select name="cat">
+			<div class="col-xs-4">
+				<select name="color">
 					<option value="">Color</option>
 					<?php
 						foreach ($terms as $value) {
@@ -80,8 +100,8 @@ if (isset($_GET['phone'])) {
 				$vocabulary = taxonomy_vocabulary_machine_name_load('product_material');
 				$terms = taxonomy_get_tree($vocabulary->vid);
 			?>	
-			<div class="col-xs-3 text-center">
-				<select name="cat">
+			<div class="col-xs-4">
+				<select name="mat">
 					<option value="">MATERIAL</option>
 					<?php
 						foreach ($terms as $value) {
@@ -99,6 +119,16 @@ if (isset($_GET['phone'])) {
 				</select>	
 			</div>
 <!--############################################ End Cat  -->			
+			<div class="col-xs-4">
+				<select name="ava">
+					<option value="">AVAILABILITY</option>
+					<option value="shop">Offline (Shop)</option>
+					<option value="consignment">Offline (Consignment)</option>
+					<option value="website">Online (Website)</option>
+					<option value="others">Online (Others)</option>
+					<option value="warehouse">Warehouse</option>
+				</select>
+			</div>
 			<div class="col-xs-12">
 				Supplise name: <input type="text" name="sub_name">
 			</div>
@@ -121,6 +151,20 @@ if ($user->uid == 0) {
 	//print 'Login to view product.';
 	//return false;
 }
+
+
+$sql = '
+	SELECT DISTINCT n.nid 
+	FROM {node} n   
+	LEFT JOIN {field_data_field_in_contact_number} ct
+	ON n.nid = ct.entity_id
+	WHERE (n.type = :type AND n.status = :status)
+';
+
+$params = array(':type'  => 'customers', ':status' => 1);
+
+
+
 $nodes = node_load_multiple(array(), array('type' => 'products'));
 
 $total_node = count($nodes);
