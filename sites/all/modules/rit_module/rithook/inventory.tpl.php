@@ -41,6 +41,18 @@ $sql_order = '';
 
 $params = array(':type'  => 'products', ':status' => 1);
 
+// supplier
+if ($sub_name != '') {
+	$sql_join .= ' 
+		LEFT JOIN {field_data_field_product_supplier} p_supplier
+		ON n.nid = p_supplier.entity_id
+		LEFT JOIN {node} n2
+		ON p_supplier.field_product_supplier_target_id = n2.nid
+	';
+	$sql_where .= ' AND n2.title LIKE :sub_name';
+	$params[':sub_name'] = '%'.$sub_name.'%';
+}
+
 // avaliable
 if ($ava != '') {
 	if ($ava == 'shop') {
@@ -264,7 +276,7 @@ dpm($nids);
 				</select>
 			</div>
 			<div class="col-xs-12">
-				Supplise name: <input type="text" name="sub_name">
+				Supplier name: <input type="text" name="sub_name" value="<?php print $sub_name;?>">
 			</div>
 			<div class="col-xs-12 marb20">
 
