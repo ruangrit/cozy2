@@ -45,10 +45,19 @@ $sql = '
 	LEFT JOIN {field_data_field_product_color} color
 	ON n.nid = color.entity_id
 
+	LEFT JOIN {field_data_field_product_material} mat
+	ON n.nid = mat.entity_id
+
 	WHERE (n.type = :type AND n.status = :status)
 ';
 
 $params = array(':type'  => 'products', ':status' => 1);
+
+// material 
+if($mat != '') {
+	$sql .= ' AND mat.field_product_material_tid = :mat ';
+	$params[':mat'] = $mat;
+}
 
 // color 
 if($color != '') {
@@ -173,14 +182,12 @@ dpm($nids);
 					<option value="">MATERIAL</option>
 					<?php
 						foreach ($terms as $value) {
-							if ($value->parents[0] == 0) {
-								print '<option value="'.$value->tid.'">'.$value->name.'</option>';
 
-							}
-							else {
-								print '<option value="'.$value->tid.'">-'.$value->name.'</option>';
+							print '<option';
+							if ($value->tid == $mat) {print ' selected ';}
+							print ' value="'.$value->tid.'">'.$value->name.'</option>';
 
-							}
+							
 						}
 					?>
 
