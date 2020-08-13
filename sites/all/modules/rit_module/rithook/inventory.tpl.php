@@ -192,7 +192,7 @@ dpm($nids);
 	<div class="row">
 		<div class="col-xs-12">
 		<form method="GET">
-			<div class="col-xs-4">
+			<div class="col-xs-4 marb20">
 				<select name="order">
 					<option value="" <?php if($order == ""){print "selected";}?>>-- FEATURE --</option>
 					<option value="lth" <?php if($order == "lth"){print "selected";}?> >Price - Low to High</option>
@@ -208,7 +208,7 @@ dpm($nids);
 				$vocabulary = taxonomy_vocabulary_machine_name_load('product_category');
 				$terms = taxonomy_get_tree($vocabulary->vid);
 			?>	
-			<div class="col-xs-4">
+			<div class="col-xs-4 marb20">
 				<select name="cat">
 					<option value="">-- PRODUCT CATEGORY --</option>
 					<?php
@@ -236,7 +236,7 @@ dpm($nids);
 				$vocabulary = taxonomy_vocabulary_machine_name_load('product_color');
 				$terms = taxonomy_get_tree($vocabulary->vid);
 			?>	
-			<div class="col-xs-4">
+			<div class="col-xs-4 marb20">
 				<select name="color">
 					<option value="">-- Color --</option>
 					<?php
@@ -258,7 +258,7 @@ dpm($nids);
 				$vocabulary = taxonomy_vocabulary_machine_name_load('product_material');
 				$terms = taxonomy_get_tree($vocabulary->vid);
 			?>	
-			<div class="col-xs-4">
+			<div class="col-xs-4 marb20">
 				<select name="mat">
 					<option value="">-- MATERIAL --</option>
 					<?php
@@ -275,7 +275,7 @@ dpm($nids);
 				</select>	
 			</div>
 <!--############################################ End Cat  -->			
-			<div class="col-xs-4">
+			<div class="col-xs-8 marb20">
 				<select name="ava">
 					<option value="" <?php if($ava == ""){print "selected";}?> >-- AVAILABILITY --</option>
 					<option value="shop" <?php if($ava == "shop"){print "selected";}?> >Offline (Shop)</option>
@@ -285,15 +285,21 @@ dpm($nids);
 					<option value="warehouse" <?php if($ava == "warehouse"){print "selected";}?> >Warehouse</option>
 				</select>
 			</div>
-			<div class="col-xs-12">
+			<div class="col-xs-4 marb20">
 				Supplier name: <input type="text" name="sub_name" value="<?php print $sub_name;?>">
 			</div>
-			<div class="col-xs-12 marb20">
+			<div class="col-xs-4 marb20">
 
 				Product name/code: <input type="text" name="prd_name" value="<?php print $prd_name;?>">
 			</div>
 
-			<div><input type="submit" value="Search"></div>
+			<div class="col-xs-4 marb20">
+
+				<input type="submit" value="Search">
+				<input type="reset" value="Reset" onclick="window.location = 'inventory';">
+
+			</div>
+
 			</form>
 		</div>
 

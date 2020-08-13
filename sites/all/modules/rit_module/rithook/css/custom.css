@@ -25,6 +25,20 @@ body, #edit-field-email td, #edit-field-in-contact-number td, .panel, .paragraph
 	background: #F3F4F3 !important;
 }
 
+.search-form {
+	border: 1px solid #999;
+	padding-top: 15px;
+}
+
+.pagination .active span {
+	background: #98b7c9 !important;
+	border-color: #9cbdd0 !important;
+}
+
+.pagination > li > a {
+	color: #9fbccd !important; 
+}
+
 @font-face {
     font-family: 'hatton';
     src: url('/sites/all/modules/rit_module/rithook/font/hatton-semibold-webfont.woff') format('woff'),
