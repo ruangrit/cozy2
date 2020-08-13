@@ -41,6 +41,16 @@ $sql_order = '';
 
 $params = array(':type'  => 'products', ':status' => 1);
 
+// product name, code
+if ($prd_name != '') {
+	$sql_join .= '
+		LEFT JOIN {field_data_field_product_code} code
+		ON n.nid = code.entity_id
+	';
+	$sql_where .= ' AND  (n.title LIKE :prd_name OR code.field_product_code_value LIKE :prd_name)';
+	$params[':prd_name'] = '%'.$prd_name.'%';
+}
+
 // supplier
 if ($sub_name != '') {
 	$sql_join .= ' 
@@ -280,7 +290,7 @@ dpm($nids);
 			</div>
 			<div class="col-xs-12 marb20">
 
-				Product name/code: <input type="text" name="prd_name">
+				Product name/code: <input type="text" name="prd_name" value="<?php print $prd_name;?>">
 			</div>
 
 			<div><input type="submit" value="Search"></div>
