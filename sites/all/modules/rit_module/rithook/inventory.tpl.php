@@ -29,6 +29,46 @@ if (isset($_GET['prd_name'])) {
 	$prd_name = $_GET['prd_name'];
 }
 
+$sql = '
+	SELECT DISTINCT n.nid 
+	FROM {node} n   
+	LEFT JOIN {field_data_field_product_price} pp
+	ON n.nid = pp.entity_id
+	WHERE (n.type = :type AND n.status = :status)
+';
+
+$params = array(':type'  => 'products', ':status' => 1);
+
+if($order != '') {
+	if ($order == 'lth') {
+		$sql .= ' ORDER BY pp.field_product_price_value ASC';
+	}
+	else if ($order == 'htl') {
+		$sql .= ' ORDER BY pp.field_product_price_value DESC';
+	}
+	else if ($order == 'atz') {
+		$sql .= ' ORDER BY n.title ASC';
+	}
+	else if ($order == 'zta') {
+		$sql .= ' ORDER BY n.title DESC';
+	}
+	else if ($order == 'nto') {
+		$sql .= ' ORDER BY n.created ASC';
+	}
+	else if ($order == 'otn') {
+		$sql .= ' ORDER BY n.created DESC';
+	}
+}
+
+$result = db_query($sql, $params);
+
+$nids = array();
+foreach ($result as $record) {
+	$nids[] = $record->nid;
+}
+dpm($nids);
+
+
 ?>
 
 <div class="search-form container">
@@ -37,13 +77,13 @@ if (isset($_GET['prd_name'])) {
 		<form method="GET">
 			<div class="col-xs-4">
 				<select name="order">
-					<option value="">-FEATURE-</option>
-					<option value="lth">Price - Low to High</option>
-					<option value="htl">Price - High to Low</option>
-					<option value="atz">Alphabetically - A to Z</option>
-					<option value="zta">Alphabetically - Z to A</option>
-					<option value="nto">Date - New to Old</option>
-					<option value="otn">Date - Old to New</option>
+					<option value="" <?php if($order == ""){print "selected";}?>>-FEATURE-</option>
+					<option value="lth" <?php if($order == "lth"){print "selected";}?> >Price - Low to High</option>
+					<option value="htl" <?php if($order == "htl"){print "selected";}?> >Price - High to Low</option>
+					<option value="atz" <?php if($order == "atz"){print "selected";}?> >Alphabetically - A to Z</option>
+					<option value="zta" <?php if($order == "zta"){print "selected";}?> >Alphabetically - Z to A</option>
+					<option value="nto" <?php if($order == "nto"){print "selected";}?> >Date - New to Old</option>
+					<option value="otn" <?php if($order == "otn"){print "selected";}?> >Date - Old to New</option>
 				</select>
 			</div>
 <!--############################################ Cat  -->			
@@ -153,54 +193,61 @@ if ($user->uid == 0) {
 }
 
 
-$sql = '
-	SELECT DISTINCT n.nid 
-	FROM {node} n   
-	LEFT JOIN {field_data_field_in_contact_number} ct
-	ON n.nid = ct.entity_id
-	WHERE (n.type = :type AND n.status = :status)
-';
 
-$params = array(':type'  => 'customers', ':status' => 1);
+if(count($nids) == 0) {
+	print '-- No data ---';
+}
+else {
 
 
+		//pagger
+	$per_page = 3;
+	$current_page = pager_default_initialize(count($nids), $per_page);
+	$chunks = array_chunk($nids, $per_page, TRUE);
+	$total_node = count($nids);
 
-$nodes = node_load_multiple(array(), array('type' => 'products'));
 
-$total_node = count($nodes);
-$run_num = 1;
-foreach ($nodes as $node) {
-	
-	$path = drupal_get_path_alias('node/'.$node->nid);
-	if ($run_num == $total_node) {
-		print '<div class="container" style="padding-top: 20px;">';
-	}
-	else {
-		print '<div class="container" style="border-bottom: 1px solid #eee; padding-top: 20px;">';
+	$nodes = node_load_multiple($chunks[$current_page]);
 
-	}
-		print '<div class="row marb20">';
-			print '<div class="col-xs-4"><a href="'.$path.'">';
-				print theme('image_style', 
-					array('path' => $node->field_product_feature_image['und'][0]['uri'],
-						'style_name' => 'product_list',
-						'attributes' => array('class' => 'center'),
-						)
-					);
-				
-			print '</a></div>';
+	$total_node = count($nodes);
+	$run_num = 1;
+	foreach ($nodes as $node) {
+		
+		$path = drupal_get_path_alias('node/'.$node->nid);
+		if ($run_num == $total_node) {
+			print '<div class="container" style="padding-top: 20px;">';
+		}
+		else {
+			print '<div class="container" style="border-bottom: 1px solid #eee; padding-top: 20px;">';
 
-			print '<div class="col-xs-8">';
+		}
+			print '<div class="row marb20">';
+				print '<div class="col-xs-4"><a href="'.$path.'">';
+					print theme('image_style', 
+						array('path' => $node->field_product_feature_image['und'][0]['uri'],
+							'style_name' => 'product_list',
+							'attributes' => array('class' => 'center'),
+							)
+						);
+					
+				print '</a></div>';
 
-				print '<div class="code16">' . $node->field_product_code['und'][0]['value'] . '</div>';
-				print '<div class="title18">' . $node->title . '</div>';
-				print '<div class="normal16"> THB ' .number_format($node->field_product_price['und'][0]['value']).' </div>';
+				print '<div class="col-xs-8">';
 
+					print '<div class="code16">' . $node->field_product_code['und'][0]['value'] . '</div>';
+					print '<div class="title18">' . $node->title . '</div>';
+					print '<div class="normal16"> THB ' .number_format($node->field_product_price['und'][0]['value']).' </div>';
+
+				print '</div>';
 			print '</div>';
 		print '</div>';
-	print '</div>';
-	$run_num++;
+		$run_num++;
+	}
+	print theme('pager', array('quantity', count($nodes)));
+
+
 }
+
 
 
 
