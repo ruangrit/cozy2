@@ -34,11 +34,26 @@ $sql = '
 	FROM {node} n   
 	LEFT JOIN {field_data_field_product_price} pp
 	ON n.nid = pp.entity_id
+	LEFT JOIN {field_data_field_product_category} pc
+	ON n.nid = pc.entity_id
+	LEFT JOIN {taxonomy_term_hierarchy} pt
+	ON pc.field_product_category_tid = pt.tid
+	LEFT JOIN {taxonomy_term_data} ptd
+	ON pt.parent = ptd.tid
 	WHERE (n.type = :type AND n.status = :status)
 ';
 
 $params = array(':type'  => 'products', ':status' => 1);
 
+
+// cat filter
+if($cat != '') {
+	$sql .= ' AND (pc.field_product_category_tid = :cat OR ptd.tid = :cat)';
+	$params[':cat'] = $cat;
+}
+
+
+// order
 if($order != '') {
 	if ($order == 'lth') {
 		$sql .= ' ORDER BY pp.field_product_price_value ASC';
@@ -59,6 +74,8 @@ if($order != '') {
 		$sql .= ' ORDER BY n.created DESC';
 	}
 }
+
+
 
 $result = db_query($sql, $params);
 
