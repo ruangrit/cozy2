@@ -29,45 +29,95 @@ if (isset($_GET['prd_name'])) {
 	$prd_name = $_GET['prd_name'];
 }
 
-$sql = '
+$sql_select = '
 	SELECT DISTINCT n.nid 
 	FROM {node} n   
-	LEFT JOIN {field_data_field_product_price} pp
-	ON n.nid = pp.entity_id
-
-	LEFT JOIN {field_data_field_product_category} pc
-	ON n.nid = pc.entity_id
-	LEFT JOIN {taxonomy_term_hierarchy} pt
-	ON pc.field_product_category_tid = pt.tid
-	LEFT JOIN {taxonomy_term_data} ptd
-	ON pt.parent = ptd.tid
-
-	LEFT JOIN {field_data_field_product_color} color
-	ON n.nid = color.entity_id
-
-	LEFT JOIN {field_data_field_product_material} mat
-	ON n.nid = mat.entity_id
-
-	WHERE (n.type = :type AND n.status = :status)
+	
 ';
+
+$sql_join = '';
+$sql_where = ' WHERE (n.type = :type AND n.status = :status) ';
+$sql_order = '';
 
 $params = array(':type'  => 'products', ':status' => 1);
 
+// avaliable
+if ($ava != '') {
+	if ($ava == 'shop') {
+		$sql_join .= '
+			LEFT JOIN {field_data_field_prd_qty_offline_shop} ava 
+			ON n.nid = ava.entity_id
+		';
+		$sql_where .= ' AND ava.field_prd_qty_offline_shop_value > 0 ';
+	}
+	else if ($ava == 'consignment') {
+		$sql_join .= '
+			LEFT JOIN {field_data_field_prd_offline_consignment} ava 
+			ON n.nid = ava.entity_id
+		';
+		$sql_where .= ' AND ava.field_prd_offline_consignment_value > 0 ';
+
+	}
+	else if ($ava == 'website') {
+		$sql_join .= '
+			LEFT JOIN {field_data_field_prd_qty_online_website} ava
+			ON n.nid = ava.entity_id
+		';
+		$sql_where .= ' AND ava.field_prd_qty_online_website_value > 0 ';
+
+	}
+	else if ($ava == 'others') {
+		$sql_join .= '
+			LEFT JOIN {field_data_field_prd_qty_online_others} ava
+			ON n.nid = ava.entity_id
+		';
+		$sql_where .= ' AND ava.field_prd_qty_online_others_value > 0 ';
+
+	}
+	else if ($ava == 'warehouse') {
+		$sql_join .= '
+			LEFT JOIN {field_data_field_prd_qty_warehouse} ava
+			ON n.nid = ava.entity_id
+		';
+		$sql_where .= ' AND ava.field_prd_qty_warehouse_value > 0 ';
+
+	}
+}
+
+
 // material 
 if($mat != '') {
-	$sql .= ' AND mat.field_product_material_tid = :mat ';
+	$sql_join .= '
+
+		LEFT JOIN {field_data_field_product_material} mat
+		ON n.nid = mat.entity_id
+	';
+
+	$sql_where .= ' AND mat.field_product_material_tid = :mat ';
 	$params[':mat'] = $mat;
 }
 
 // color 
 if($color != '') {
-	$sql .= ' AND color.field_product_color_tid = :color ';
+	$sql_join .= '
+		LEFT JOIN {field_data_field_product_color} color
+		ON n.nid = color.entity_id
+	';
+	$sql_where .= ' AND color.field_product_color_tid = :color ';
 	$params[':color'] = $color;
 }
 
 // cat filter
 if($cat != '') {
-	$sql .= ' AND (pc.field_product_category_tid = :cat OR ptd.tid = :cat)';
+	$sql_join .= '
+		LEFT JOIN {field_data_field_product_category} pc
+		ON n.nid = pc.entity_id
+		LEFT JOIN {taxonomy_term_hierarchy} pt
+		ON pc.field_product_category_tid = pt.tid
+		LEFT JOIN {taxonomy_term_data} ptd
+		ON pt.parent = ptd.tid
+	';
+	$sql_where .= ' AND (pc.field_product_category_tid = :cat OR ptd.tid = :cat)';
 	$params[':cat'] = $cat;
 }
 
@@ -75,26 +125,35 @@ if($cat != '') {
 // order
 if($order != '') {
 	if ($order == 'lth') {
-		$sql .= ' ORDER BY pp.field_product_price_value ASC';
+		$sql_join .= '
+			LEFT JOIN {field_data_field_product_price} pp
+			ON n.nid = pp.entity_id
+		';
+		$sql_order .= ' ORDER BY pp.field_product_price_value ASC';
 	}
 	else if ($order == 'htl') {
-		$sql .= ' ORDER BY pp.field_product_price_value DESC';
+		$sql_join .= '
+			LEFT JOIN {field_data_field_product_price} pp
+			ON n.nid = pp.entity_id
+		';
+		$sql_order .= ' ORDER BY pp.field_product_price_value DESC';
 	}
 	else if ($order == 'atz') {
-		$sql .= ' ORDER BY n.title ASC';
+		$sql_order .= ' ORDER BY n.title ASC';
 	}
 	else if ($order == 'zta') {
-		$sql .= ' ORDER BY n.title DESC';
+		$sql_order .= ' ORDER BY n.title DESC';
 	}
 	else if ($order == 'nto') {
-		$sql .= ' ORDER BY n.created ASC';
+		$sql_order .= ' ORDER BY n.created ASC';
 	}
 	else if ($order == 'otn') {
-		$sql .= ' ORDER BY n.created DESC';
+		$sql_order .= ' ORDER BY n.created DESC';
 	}
 }
 
 
+$sql = $sql_select.$sql_join.$sql_where.$sql_order;
 
 $result = db_query($sql, $params);
 
@@ -113,7 +172,7 @@ dpm($nids);
 		<form method="GET">
 			<div class="col-xs-4">
 				<select name="order">
-					<option value="" <?php if($order == ""){print "selected";}?>>-FEATURE-</option>
+					<option value="" <?php if($order == ""){print "selected";}?>>-- FEATURE --</option>
 					<option value="lth" <?php if($order == "lth"){print "selected";}?> >Price - Low to High</option>
 					<option value="htl" <?php if($order == "htl"){print "selected";}?> >Price - High to Low</option>
 					<option value="atz" <?php if($order == "atz"){print "selected";}?> >Alphabetically - A to Z</option>
@@ -129,7 +188,7 @@ dpm($nids);
 			?>	
 			<div class="col-xs-4">
 				<select name="cat">
-					<option value="">PRODUCT CATEGORY</option>
+					<option value="">-- PRODUCT CATEGORY --</option>
 					<?php
 						foreach ($terms as $value) {
 							if ($value->parents[0] == 0) {
@@ -157,7 +216,7 @@ dpm($nids);
 			?>	
 			<div class="col-xs-4">
 				<select name="color">
-					<option value="">Color</option>
+					<option value="">-- Color --</option>
 					<?php
 						foreach ($terms as $value) {
 							
@@ -179,7 +238,7 @@ dpm($nids);
 			?>	
 			<div class="col-xs-4">
 				<select name="mat">
-					<option value="">MATERIAL</option>
+					<option value="">-- MATERIAL --</option>
 					<?php
 						foreach ($terms as $value) {
 
@@ -196,12 +255,12 @@ dpm($nids);
 <!--############################################ End Cat  -->			
 			<div class="col-xs-4">
 				<select name="ava">
-					<option value="">AVAILABILITY</option>
-					<option value="shop">Offline (Shop)</option>
-					<option value="consignment">Offline (Consignment)</option>
-					<option value="website">Online (Website)</option>
-					<option value="others">Online (Others)</option>
-					<option value="warehouse">Warehouse</option>
+					<option value="" <?php if($ava == ""){print "selected";}?> >-- AVAILABILITY --</option>
+					<option value="shop" <?php if($ava == "shop"){print "selected";}?> >Offline (Shop)</option>
+					<option value="consignment" <?php if($ava == "consignment"){print "selected";}?> >Offline (Consignment)</option>
+					<option value="website" <?php if($ava == "website"){print "selected";}?> >Online (Website)</option>
+					<option value="others" <?php if($ava == "others"){print "selected";}?> >Online (Others)</option>
+					<option value="warehouse" <?php if($ava == "warehouse"){print "selected";}?> >Warehouse</option>
 				</select>
 			</div>
 			<div class="col-xs-12">
