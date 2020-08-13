@@ -34,17 +34,27 @@ $sql = '
 	FROM {node} n   
 	LEFT JOIN {field_data_field_product_price} pp
 	ON n.nid = pp.entity_id
+
 	LEFT JOIN {field_data_field_product_category} pc
 	ON n.nid = pc.entity_id
 	LEFT JOIN {taxonomy_term_hierarchy} pt
 	ON pc.field_product_category_tid = pt.tid
 	LEFT JOIN {taxonomy_term_data} ptd
 	ON pt.parent = ptd.tid
+
+	LEFT JOIN {field_data_field_product_color} color
+	ON n.nid = color.entity_id
+
 	WHERE (n.type = :type AND n.status = :status)
 ';
 
 $params = array(':type'  => 'products', ':status' => 1);
 
+// color 
+if($color != '') {
+	$sql .= ' AND color.field_product_color_tid = :color ';
+	$params[':color'] = $color;
+}
 
 // cat filter
 if($cat != '') {
@@ -114,11 +124,15 @@ dpm($nids);
 					<?php
 						foreach ($terms as $value) {
 							if ($value->parents[0] == 0) {
-								print '<option value="'.$value->tid.'">'.$value->name.'</option>';
+								print '<option ';
+								if ($value->tid == $cat) {print ' selected ';}
+								print ' value="'.$value->tid.'" >'.$value->name.'</option>';
 
 							}
 							else {
-								print '<option value="'.$value->tid.'">-'.$value->name.'</option>';
+								print '<option ';
+								if ($value->tid == $cat) {print ' selected ';}
+								print ' value="'.$value->tid.'">-'.$value->name.'</option>';
 
 							}
 						}
@@ -137,14 +151,11 @@ dpm($nids);
 					<option value="">Color</option>
 					<?php
 						foreach ($terms as $value) {
-							if ($value->parents[0] == 0) {
-								print '<option value="'.$value->tid.'">'.$value->name.'</option>';
-
-							}
-							else {
-								print '<option value="'.$value->tid.'">-'.$value->name.'</option>';
-
-							}
+							
+							print '<option';
+							if ($value->tid == $color) {print ' selected ';}
+							print ' value="'.$value->tid.'">'.$value->name.'</option>';
+							
 						}
 					?>
 
