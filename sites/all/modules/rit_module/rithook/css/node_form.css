@@ -8,7 +8,7 @@
 	display: none !important;
 }
 
-.field-type-image .help-block {
+.field-type-image .help-block a {
 	display: none !important;
 }
 .form-actions {

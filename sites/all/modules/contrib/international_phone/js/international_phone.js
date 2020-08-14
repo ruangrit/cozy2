@@ -16,7 +16,7 @@
 
           // Initialize International Phone Field.
           $fields.intlTelInput({
-            //utilsScript: settings.internationalPhone.utilsScriptPath,
+            utilsScript: settings.internationalPhone.utilsScriptPath,
             //autoPlaceholder: true,
             nationalMode: false,
             //separateDialCode: true,
