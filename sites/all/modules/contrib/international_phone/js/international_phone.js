@@ -64,9 +64,9 @@
                 $(this).val().replace(/^\D+/g, '').length
                 && $(this).intlTelInput('isValidNumber')
             ) {
-              //====$(this).addClass('success');
+              $(this).addClass('success');
             } else {
-              //========$(this).removeClass('success').addClass('error');
+              $(this).removeClass('success').addClass('error');
             }
           });
         }
