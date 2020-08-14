@@ -93,7 +93,9 @@ body, #edit-field-email td, #edit-field-in-contact-number td, .panel, .paragraph
 .l20 {
 	line-height: 2.0em;
 }
-.code16 {
+.code16,
+.product-node-detail .field-label
+ {
 	color: #98B8CA; 
 	font-size: 16px;
 	font-weight: bold;
@@ -105,20 +107,28 @@ body, #edit-field-email td, #edit-field-in-contact-number td, .panel, .paragraph
 	font-weight: bold;
 	
 }
-.normal16 {
+.normal16,
+.field-name-field-product-shop .field-items,
+.product-node-detail .field-items,
+.product-node-detail-1 .field-items
+ {
 	color: #989898;
 	font-size: 16px;
 	
 }
 
-.code14, .code14 a{
+.code14, 
+.code14 a{
 	color: #98B8CA; 
 	font-size: 14px;
 	font-weight: bold;
 	
 }
 
-.title16 {
+.title16, 
+.field-name-field-product-shop  .field-label,
+.product-node-detail-1 .field-label
+ {
 	color: #666666;
 	font-size: 16px;
 	font-weight: bold;

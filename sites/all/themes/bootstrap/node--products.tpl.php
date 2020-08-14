@@ -113,9 +113,9 @@
       <?php 
         print '<div class="code16 l25">'.render($content['field_product_code']).'</div>'; 
         print '<div class="title18 l25">'.$node->title.'</div>';
-        print '<div class="l25">'.render($content['group_product_details']['field_product_material']).'</div>';
-        print '<div class="l25">'.render($content['group_product_details']['field_product_color']).'</div>';
-        print '<div class="l25">'.render($content['field_product_supplier']).'</div>';
+        print '<div class="l25 product-node-detail-1">'.render($content['group_product_details']['field_product_material']).'</div>';
+        print '<div class="l25 product-node-detail-1">'.render($content['group_product_details']['field_product_color']).'</div>';
+        print '<div class="l25 product-node-detail-1">'.render($content['field_product_supplier']).'</div>';
       ?>
 
     </div>
@@ -125,7 +125,7 @@
     <div class="border-line marb20">&nbsp;</div>
   </div>
 
-  <div class="row">
+  <div class="row product-node-detail">
     <div class="col-xs-4">
         <div class="title16">Size</div>
         <?php print render($content['group_product_details']['group_size']);?>
@@ -150,7 +150,9 @@
         <?php print render($content['field_product_shop']);?>
       </div>
       <div class="col-xs-4">
+
         <span class="title16">Category - </span>
+        <span class="normal16">
         <?php
             ///dpm($node);
             $parent_term = taxonomy_get_parents($node->field_product_category['und'][0]['tid']);
@@ -165,9 +167,11 @@
             }
 
         ?>
+        </span>
       </div>
-      <div class="col-xs-4">
+      <div class="col-xs-4 marb20">
         <span class="title16">Sub Category - </span>
+        <span class="normal16">
         <?php
           
           if ($parent_term) {
@@ -177,14 +181,14 @@
             print '-no sub catagory-';
           }
         ?>
-       
+        </span>
       </div>
 
     </div>  
 
   <div class="row">
    <div class="col-xs-12 title16">Description</div>
-   <div class="col-xs-12"><?php print render($content['body']);?></div>
+   <div class="col-xs-12 normal16"><?php print render($content['body']);?></div>
   </div>
 
   <?php
