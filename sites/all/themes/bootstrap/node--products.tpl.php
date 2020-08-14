@@ -186,10 +186,17 @@
 
     </div>  
 
-  <div class="row">
+  <div class="row marb20">
    <div class="col-xs-12 title16">Description</div>
    <div class="col-xs-12 normal16"><?php print render($content['body']);?></div>
   </div>
+
+<?php if(isset($content['field_product_gallery_image'])):?>
+  <div class="row node-product-gallery">
+   <div class="col-xs-12 title16">Image Gallery</div>
+   <div class="col-xs-12 normal16"><?php print render($content['field_product_gallery_image']);?></div>
+  </div>
+<?php endif;?>
 
   <?php
     // Only display the wrapper div if there are tags or links.

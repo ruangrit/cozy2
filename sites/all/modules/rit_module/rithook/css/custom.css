@@ -124,6 +124,10 @@ body, #edit-field-email td, #edit-field-in-contact-number td, .panel, .paragraph
 	font-weight: bold;
 	
 }
+.node-product-gallery .field-name-field-product-gallery-image .field-item {
+	float: left;
+	margin-right: 10px;
+}
 
 .title16, 
 .field-name-field-product-shop  .field-label,
