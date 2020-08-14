@@ -183,7 +183,6 @@ $nids = array();
 foreach ($result as $record) {
 	$nids[] = $record->nid;
 }
-dpm($nids);
 
 
 ?>

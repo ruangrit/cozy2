@@ -18,6 +18,22 @@
  * @ingroup theme_preprocess
  */
 function bootstrap_preprocess_page(array &$variables) {
+
+  // rit add
+  if (variable_get('maintenance_mode', 0)) {
+
+    if(isset($_SESSION['messages'])) {
+      $message_count = count($_SESSION['messages']['status']);
+      if($message_count > 1) {
+        //==array_shift($_SESSION['messages']['status']);
+      }
+      else {
+        //==unset($_SESSION['messages']['status']);
+      }
+
+    }
+  }
+
   // Add information about the number of sidebars.
   if (!empty($variables['page']['sidebar_first']) && !empty($variables['page']['sidebar_second'])) {
     $variables['content_column_class'] = ' class="col-sm-6"';

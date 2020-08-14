@@ -84,28 +84,37 @@ body, #edit-field-email td, #edit-field-in-contact-number td, .panel, .paragraph
   border-bottom: 1px solid #6d8c9e !important;
 
 }
-
+.border-line {
+	border-bottom: 1px solid #666;
+}
+.l25 {
+	line-height: 2.5em;
+}
+.l20 {
+	line-height: 2.0em;
+}
 .code16 {
 	color: #98B8CA; 
 	font-size: 16px;
-	line-height: 1.5em;
+	font-weight: bold;
 }
 
 .title18 {
 	color: #666666;
 	font-size: 18px;
 	font-weight: bold;
-	line-height: 1.5em;
+	
 }
 .normal16 {
 	color: #989898;
 	font-size: 16px;
-	line-height: 1.5em;
+	
 }
 
 .code14, .code14 a{
 	color: #98B8CA; 
 	font-size: 14px;
+	font-weight: bold;
 	
 }
 

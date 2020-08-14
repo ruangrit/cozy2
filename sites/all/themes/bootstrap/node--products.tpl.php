@@ -103,39 +103,88 @@
     hide($content['field_tags']);
     //print render($content);
 
+
     
   ?>
 
-  <div class="col-xs-3">
-    <?php print render($content['field_product_feature_image']);?>
+  
+  <div class="row">
+    <div class="col-xs-8">
+      <?php 
+        print '<div class="code16 l25">'.render($content['field_product_code']).'</div>'; 
+        print '<div class="title18 l25">'.$node->title.'</div>';
+        print '<div class="l25">'.render($content['group_product_details']['field_product_material']).'</div>';
+        print '<div class="l25">'.render($content['group_product_details']['field_product_color']).'</div>';
+        print '<div class="l25">'.render($content['field_product_supplier']).'</div>';
+      ?>
+
+    </div>
+    <div class="col-xs-4">
+        <?php print render($content['field_product_feature_image']);?>
+    </div>
+    <div class="border-line marb20">&nbsp;</div>
   </div>
-  <div class="col-xs-9">
 
-    <?php 
-      print '<h4>'.$node->title.'</h4>';
-      print render($content['field_product_code']); 
-      print render($content['body']);
-      print render($content['field_product_category']);
-      print render($content['field_product_shop']);
-      print render($content['field_product_supplier']);
-
-
-
-    ?>
+  <div class="row">
     <div class="col-xs-4">
-      <h6>Size</h6>
-      <?php print render($content['group_product_details']['group_size']);?>
+        <div class="title16">Size</div>
+        <?php print render($content['group_product_details']['group_size']);?>
     </div>
     <div class="col-xs-4">
-      <h6>Quantity</h6>
-      <?php print render($content['group_product_details']['group_quantity']);?>
+        <div class="title16">Price</div>
+        <?php  print render($content['group_product_details']['field_product_price']);?>
+        <?php  print render($content['group_product_details']['field_product_cost']);?>
     </div>
     <div class="col-xs-4">
-      <h6>Price</h6>
-      <?php  print render($content['group_product_details']['field_product_price']);?>
-      <?php  print render($content['group_product_details']['field_product_cost']);?>
+        <div class="title16">Quantity</div>
+        <?php print render($content['group_product_details']['group_quantity']);?>
     </div>
 
+    <div class="border-line marb20">&nbsp;</div>
+  </div>
+
+    
+ 
+    <div class="row">
+      <div class="col-xs-4">
+        <?php print render($content['field_product_shop']);?>
+      </div>
+      <div class="col-xs-4">
+        <span class="title16">Category - </span>
+        <?php
+            ///dpm($node);
+            $parent_term = taxonomy_get_parents($node->field_product_category['und'][0]['tid']);
+            if ($parent_term) {
+              foreach ($parent_term as $value) {
+                print $value->name;
+              }
+              
+            }
+            else {
+                print $node->field_product_category['und'][0]['taxonomy_term']->name;
+            }
+
+        ?>
+      </div>
+      <div class="col-xs-4">
+        <span class="title16">Sub Category - </span>
+        <?php
+          
+          if ($parent_term) {
+            print $node->field_product_category['und'][0]['taxonomy_term']->name;
+          }
+          else {
+            print '-no sub catagory-';
+          }
+        ?>
+       
+      </div>
+
+    </div>  
+
+  <div class="row">
+   <div class="col-xs-12 title16">Description</div>
+   <div class="col-xs-12"><?php print render($content['body']);?></div>
   </div>
 
   <?php
