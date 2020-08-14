@@ -187,7 +187,7 @@ foreach ($result as $record) {
 
 ?>
 
-<div class="search-form container">
+<div class="search-form prd container">
 	<div class="row">
 		<div class="col-xs-12">
 		<form method="GET">

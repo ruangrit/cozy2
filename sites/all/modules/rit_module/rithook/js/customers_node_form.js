@@ -1,5 +1,11 @@
 $ = jQuery;
 $(document).ready(function() {
+
+	if (window.location.pathname == '/node/add/customers') {
+		$('h1').html('<span style="color:#2196f3; font-size: 35px;">Join The Pleasure</span> of relaxing instyle');
+
+	}
+
 	$('.group-name').children().addClass('col-xs-4');
 
 	$('.group-customer-birth').children().addClass('col-xs-4');
