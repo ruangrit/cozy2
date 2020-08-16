@@ -1,6 +1,6 @@
 $ = jQuery;
 $(document).ready(function() {
-
+	//$('.input-group-addon').hide();
 	$('#edit-field-product-code').hide();
 	$('.group-size').children().addClass('col-xs-4');
 	
