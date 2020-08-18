@@ -98,10 +98,9 @@ function rithook_form_alter(&$form, &$form_state, $form_id) {
 
  		drupal_add_css(drupal_get_path('module', 'rithook') . '/css/customers_node_form.css');
 
-		// Add js to check rev if field have change
-		if (arg(1) != 'add') {
-	 		drupal_add_js(drupal_get_path('module', 'rithook') . '/js/customers_node_form_edit.js');
-		}
+		
+
+		
       	
 	}
 
@@ -120,10 +119,7 @@ function rithook_form_alter(&$form, &$form_state, $form_id) {
       			drupal_get_path('module', 'rithook') . '/js/suppliers_node_form.js',
       	);
 
-		// Add js to check rev if field have change
-		if (arg(1) != 'add') {
-	 		drupal_add_js(drupal_get_path('module', 'rithook') . '/js/suppliers_node_form_edit.js');
-		}
+	
 
 
 	}
