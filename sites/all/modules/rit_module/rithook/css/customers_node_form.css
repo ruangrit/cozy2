@@ -1,3 +1,14 @@
 #field-birthday-add-more-wrapper .panel-body {
 	padding: 0px !important;
 }
+
+.heading1 {
+	font-family: 'hathem', sans-serif !important;
+	font-size: 90px !important;
+	float: left;
+}
+.heading2 {
+	font-family: 'gaya', sans-serif !important;
+	font-size: 30px !important;
+	padding-top: 42px;
+}

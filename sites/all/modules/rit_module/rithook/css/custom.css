@@ -8,13 +8,19 @@ img.center {
 	margin: 0 auto;
 }
 .marb10 {
-	margin-bottom: 10px; 
+	margin-bottom: 10px !important; 
 }
 .marb20 {
-	margin-bottom: 20px; 
+	margin-bottom: 20px !important; 
 }
 .marb30 {
-	margin-bottom: 30px; 
+	margin-bottom: 30px !important; 
+}
+.marb40 {
+	margin-bottom: 40px !important; 
+}
+.marb50 {
+	margin-bottom: 50px !important; 
 }
 #block-block-1 {
 	text-align: center;
@@ -57,6 +63,21 @@ body, #edit-field-email td, #edit-field-in-contact-number td, .panel, .paragraph
     font-family: 'tenor';
     src: url('/sites/all/modules/rit_module/rithook/font/tenorsans-regular-webfont.woff') format('woff'),
          url('/sites/all/modules/rit_module/rithook/font/tenorsans-regular-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'gaya';
+    src: url('/sites/all/modules/rit_module/rithook/font/gayathri-thin-webfont.woff') format('woff'),
+         url('/sites/all/modules/rit_module/rithook/font/gayathri-thin-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'hathem';
+    src: url('/sites/all/modules/rit_module/rithook/font/hathembosteemfree-wyjjv-webfont.woff') format('woff'),
+         url('/sites/all/modules/rit_module/rithook/font/hathembosteemfree-wyjjv-webfont.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }

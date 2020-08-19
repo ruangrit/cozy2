@@ -1,13 +1,38 @@
 $ = jQuery;
 $(document).ready(function() {
+	
+	var getUrlParameter = function getUrlParameter(sParam) {
+	    var sPageURL = window.location.search.substring(1),
+	        sURLVariables = sPageURL.split('&'),
+	        sParameterName,
+	        i;
+
+	    for (i = 0; i < sURLVariables.length; i++) {
+	        sParameterName = sURLVariables[i].split('=');
+
+	        if (sParameterName[0] === sParam) {
+	            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+	        }
+	    }
+	};
+
+	var csf = getUrlParameter('csf');
+	if (csf == 'web' || csf == 'shop') {
+		$('.multiple-fields-remove-button').hide();
+		$('.field-add-more-submit').hide();
+	}
 
 	if (window.location.pathname == '/node/add/customers') {
-		$('h1').html('<span style="color:#2196f3; font-size: 35px;">Join The Pleasure</span> of relaxing instyle');
 
+		if(csf == 'web' || csf == 'shop') {
+			$('h1').html('<div class="heading1">Join&nbsp;</div><div class="heading2">A Pleasure of Relaxing in Style</div>');
+			$('.page-header').addClass('marb50');
+
+		}
 	}
 	else {
 
-		
+
 		$( document ).on( "keyup", "#edit-field-email  input", function() {
 			force_revision_new();
 		});
@@ -50,26 +75,7 @@ $(document).ready(function() {
 	}
 
 
-	var getUrlParameter = function getUrlParameter(sParam) {
-	    var sPageURL = window.location.search.substring(1),
-	        sURLVariables = sPageURL.split('&'),
-	        sParameterName,
-	        i;
 
-	    for (i = 0; i < sURLVariables.length; i++) {
-	        sParameterName = sURLVariables[i].split('=');
-
-	        if (sParameterName[0] === sParam) {
-	            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
-	        }
-	    }
-	};
-
-	var csf = getUrlParameter('csf');
-	if (csf == 'web' || csf == 'shop') {
-		$('.multiple-fields-remove-button').hide();
-		$('.field-add-more-submit').hide();
-	}
 
 
 

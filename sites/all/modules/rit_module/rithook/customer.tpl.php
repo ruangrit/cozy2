@@ -78,9 +78,9 @@ if(count($nids) == 0) {
 	print '-- No data ---';
 }
 else {
-	
+
 	//pagger
-	$per_page = 5;
+	$per_page = 50;
 	$current_page = pager_default_initialize(count($nids), $per_page);
 	$chunks = array_chunk($nids, $per_page, TRUE);
 	$total_node = count($nids);
