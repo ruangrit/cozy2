@@ -109,7 +109,9 @@
     $title_item = field_view_field('node', $node, 'field_title'); 
     print '<div class="title16">' .$title_item[0]['#markup'].' '. $node->title .' '. $node->field_last_name['und'][0]['value']. '</div>';    print '<div class="normal14">' .$email.' </div>';
 
-    print '<div> <b>Birthday - </b>' .date('d/m/Y', strtotime($node->field_birthday['und'][0]['value'])). '</div>';
+    if (isset($node->field_birthday['und'])) {
+      print '<div> <b>Birthday - </b>' .date('d/m/Y', strtotime($node->field_birthday['und'][0]['value'])). '</div>';
+    }
 
     //$country_item = field_get_items('node', $node, 'field_country');
     //print '<div> Nationallity - ' .$country_item[0]['safe']. '</div>';
